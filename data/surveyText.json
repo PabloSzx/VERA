@@ -1,0 +1,176 @@
+{
+    "home" : {
+        "introduction" : "La Unidad de Apoyo al Aprendizaje de los Estudiantes de Pregrado (UAAEP) se ha encargado de aplicar un conjunto de instrumentos de tipo encuesta a los jóvenes que ingresan cada año a la universidad.<br/><br/>Con el resultado de las encuestas, más la información adquirida por el Departamento de Evaluación, Medición y Registro Educacional (DEMRE), se elabora el informe del Perfil Psicoeducativo que permite caracterizar a las nuevas cohortes.<br/><br/>A través de esta herramienta con la colaboración de la UAAEP, queremos entregar retroalimentación acerca de tus habilidades. Para esto, utilizaremos las secciones de  <b>Autoconcepto</b> y <b>Estrategias de Aprendizajes</b> del perfil psicoeducativo, con las que apoyaremos a los estudiante en su camino hacia el éxito académico. <br/><br/> Para las secciones evaluadas hay una pestaña disponible que contiene la siguiente información:<br/> <font color='#a1d99b'> &#10003; </font> Sus distintas dimensiones, con un resumen preciso y una explicación de su puntaje<br/> <font color='#a1d99b'> &#10003; </font> Su puntaje comparado con los estudiantes de la generación anterior<br/> <font color='#a1d99b'> &#10003; </font> Consejos y recomendaciones para mejorar una habilidad específica. <br/><br/> <a style='float:right;' href='https://www.lalaproject.org/es/inicio/' target='_blank'><img src='images/lalalink.png' style='width: 250px; height: 60px;'></a> Cabe destacar que esta herramienta está realizada en el marco del Proyecto LALA, el cual puedes conocer haciendo click en la imagen que aparece en la parte inferior derecha."
+    },
+    "surveys" : [ 
+        {
+            "id" : "SurveyOne",
+            "label" : "Autoconcepto",
+            "introduction" : "El Autoconcepto es la imagen que uno tiene de sí mismo, respecto al aspecto físico, habilidades y capacidades (García y Musitu 2014, P.10)." ,
+            "details" : "String",
+            "factors" : [ 
+                {
+                    "id" : "Emotional",
+                    "label" : "Emocional",
+                    "text1" : "El Autoconcepto Emocional es tu percepción personal sobre tu estado emocional y cómo te desempeñas emocionalmente frente a situaciones importantes (García y Musitu 2014, P.10).",
+                    "textGraphic1" : "Este es tu resultado en la encuesta frente a otros estudiantes de tu misma promoción. Cada círculo representa a un estudiante.",
+                    "textGraphic2" : "A continuación, podrás ver el Rendimiento Académico de generaciones anteriores, en función al nivel obtenido en la encuesta y la cantidad de asignaturas aprobadas y reprobadas durante su primer semestre cursado.<br/><br/>Cada uno de los cuadros representa al 1% de los estudiantes. El color asociado al cuadro evidenciará si los estudiantes aprobaron o no todas sus asignaturas. <br/>",
+                    "levels" : [
+                        {
+                            "id" : "Improve", 
+                            "label" : "Mejorar"
+                        },
+                        {
+                            "id" : "Enrich",
+                            "label" : "Enriquecer"
+                        },
+                        {
+                            "id" : "Persist",
+                            "label" : "Persistir"
+                        }
+                    ]
+                },
+                {
+                    "id" : "Family",
+                    "label" : "Familiar",
+                    "text1" : "El Autoconcepto Familiar es tu percepción de cómo te insertas e integras en tu familia y cómo se dan tus relaciones familiares (García y Musitu 2014, P.10).",
+                    "textGraphic1" : "Este es tu resultado en la encuesta frente a otros estudiantes de tu misma promoción. Cada círculo representa a un estudiante.",                   
+                    "textGraphic2" : "A continuación, podrás ver el Rendimiento Académico de generaciones anteriores, en función al nivel obtenido en la encuesta y la cantidad de asignaturas aprobadas y reprobadas durante su primer semestre cursado.<br/><br/>Cada uno de los cuadros representa al 1% de los estudiantes. El color asociado al cuadro evidenciará si los estudiantes aprobaron o no todas sus asignaturas. <br/>",
+                    "levels" : [
+                        {
+                            "id" : "Improve", 
+                            "label" : "Mejorar"
+                        },
+                        {
+                            "id" : "Enrich",
+                            "label" : "Enriquecer"
+                        },
+                        {
+                            "id" : "Persist",
+                            "label" : "Persistir"
+                        }
+                    ]
+                },
+                {
+                    "id" : "Academic",
+                    "label" : "Académico",
+                    "text1" : "El Autoconcepto Académico es tu percepción de tu rol y desempeño como estudiante y cómo crees que te ven los profesores (García y Musitu 2014, P.10).",
+                    "textGraphic1" : "Este es tu resultado en la encuesta frente a otros estudiantes de tu misma promoción. Cada círculo representa a un estudiante.",
+                    "textGraphic2" : "A continuación, podrás ver el Rendimiento Académico de generaciones anteriores, en función al nivel obtenido en la encuesta y la cantidad de asignaturas aprobadas y reprobadas durante su primer semestre cursado.<br/><br/>Cada uno de los cuadros representa al 1% de los estudiantes. El color asociado al cuadro evidenciará si los estudiantes aprobaron o no todas sus asignaturas. <br/>",
+                    "levels" : [
+                        {
+                            "id" : "Improve", 
+                            "label" : "Mejorar"
+                        },
+                        {
+                            "id" : "Enrich",
+                            "label" : "Enriquecer"
+                        },
+                        {
+                            "id" : "Persist",
+                            "label" : "Persistir"
+                        }
+                    ]
+                },
+                {
+                    "id" : "Physical",
+                    "label" : "Físico",
+                    "text1" : "El Autoconcepto Físico es tu percepción de tu propio aspecto físico y de tu capacidad física para practicar deportes (García y Musitu 2014, P.10).",
+                    "textGraphic1" : "Este es tu resultado en la encuesta frente a otros estudiantes de tu misma promoción. Cada círculo representa a un estudiante.",                    
+                    "textGraphic2" : "A continuación, podrás ver el Rendimiento Académico de generaciones anteriores, en función al nivel obtenido en la encuesta y la cantidad de asignaturas aprobadas y reprobadas durante su primer semestre cursado.<br/><br/>Cada uno de los cuadros representa al 1% de los estudiantes. El color asociado al cuadro evidenciará si los estudiantes aprobaron o no todas sus asignaturas. <br/>",
+                    "levels" : [
+                        {
+                            "id" : "Improve", 
+                            "label" : "Mejorar"
+                        },
+                        {
+                            "id" : "Enrich",
+                            "label" : "Enriquecer"
+                        },
+                        {
+                            "id" : "Persist",
+                            "label" : "Persistir"
+                        }
+                    ]
+                },
+                {
+                    "id" : "Social",
+                    "label" : "Social",
+                    "text1" : "El Autoconcepto Social es tu percepción propia de cómo te desenvuelves con otros y cómo mantienes tus relaciones sociales (García y Musitu 2014, P.10).",
+                    "textGraphic1" : "Este es tu resultado en la encuesta frente a otros estudiantes de tu misma promoción. Cada círculo representa a un estudiante.",                    
+                    "textGraphic2" : "A continuación, podrás ver el Rendimiento Académico de generaciones anteriores, en función al nivel obtenido en la encuesta y la cantidad de asignaturas aprobadas y reprobadas durante su primer semestre cursado.<br/><br/>Cada uno de los cuadros representa al 1% de los estudiantes. El color asociado al cuadro evidenciará si los estudiantes aprobaron o no todas sus asignaturas. <br/>",
+                    "levels" : [
+                        {
+                            "id" : "Improve", 
+                            "label" : "Mejorar"
+                        },
+                        {
+                            "id" : "Enrich",
+                            "label" : "Enriquecer"
+                        },
+                        {
+                            "id" : "Persist",
+                            "label" : "Persistir"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id" : "SurveyTwo",
+            "label" : "Estrategias de aprendizaje",
+            "introduction" : "Las Estrategias de Aprendizaje reflejan tus conductas y pensamientos que facilitan el aprendizaje (Truffelo y Perez 1995, P.2).",
+            "details" : "String",
+            "factors" : [
+                {
+                    "id" : "Methodical",
+                    "label" : "Nivel de estudio metódico",
+                    "text1" : "El Nivel de Estudio metódico evidencia la cantidad y calidad de tiempo que tu empleas para estudiar (Truffelo y Perez 1995, P.2).",
+                    "textGraphic1" : "Este es tu resultado en la encuesta frente a otros estudiantes de tu misma promoción. Cada círculo representa a un estudiante.",
+                    "textGraphic2" : "A continuación, podrás ver el Rendimiento Académico de generaciones anteriores, en función al nivel obtenido en la encuesta y la cantidad de asignaturas aprobadas y reprobadas durante su primer semestre cursado.<br/><br/>Cada uno de los cuadros representa al 1% de los estudiantes. El color asociado al cuadro evidenciará si los estudiantes aprobaron o no todas sus asignaturas. <br/>",
+                    "levels" : []
+                },
+                {
+                    "id" : "Prosecution", 
+                    "label" : "Nivel de procesamiento de la información",
+                    "text1" : "Los niveles de procesamiento de la información representan tu forma específica de recopilar, interpretar y organizar la información (Truffelo y Perez 1995, P.2).",
+                    "components": [
+                        {
+                            "id" : "Deep",
+                            "label" : "Profundo",
+                            "text1" : "El Procesamiento Profundo es predominante cuando posees la habilidad de evaluar críticamente, reflexionar, organizar y comparar la información (Truffelo y Perez 1995, P.3).",
+                            "textGraphic1" : "Este es tu resultado en la encuesta frente a otros estudiantes de tu misma promoción. Cada círculo representa a un estudiante.",
+                            "textGraphic2" : "A continuación, podrás ver el Rendimiento Académico de generaciones anteriores, en función al nivel obtenido en la encuesta y la cantidad de asignaturas aprobadas y reprobadas durante su primer semestre cursado.<br/><br/>Cada uno de los cuadros representa al 1% de los estudiantes. El color asociado al cuadro evidenciará si los estudiantes aprobaron o no todas sus asignaturas. <br/>",
+                            "levels" : []
+                        },
+                        {
+                            "id" : "Elavorative",
+                            "label" : "Elaborativo",
+                            "text1" : "El Procesamiento Elaborativo es predominante cuando elaboras información pensando en experiencias personales y logras expresarlas en tus propias palabras (Truffelo y Perez 1995, P.2).",
+                            "textGraphic1" : "Este es tu resultado en la encuesta frente a otros estudiantes de tu misma promoción. Cada círculo representa a un estudiante.",
+                            "textGraphic2" : "A continuación, podrás ver el Rendimiento Académico de generaciones anteriores, en función al nivel obtenido en la encuesta y la cantidad de asignaturas aprobadas y reprobadas durante su primer semestre cursado.<br/><br/>Cada uno de los cuadros representa al 1% de los estudiantes. El color asociado al cuadro evidenciará si los estudiantes aprobaron o no todas sus asignaturas. <br/>",
+                            "levels" : []
+                        },
+                        {
+                            "id" : "Superficial",
+                            "label" : "Superficial",
+                            "text1" : "El Procesamiento Superficial es predominante cuando memorizas la información como hechos aislados, con el objetivo central de retener datos para aprobar una evaluación (Truffelo y Perez 1995, P.3).",
+                            "textGraphic1" : "Este es tu resultado en la encuesta frente a otros estudiantes de tu misma promoción. Cada círculo representa a un estudiante.",
+                            "textGraphic2" : "A continuación, podrás ver el Rendimiento Académico de generaciones anteriores, en función al nivel obtenido en la encuesta y la cantidad de asignaturas aprobadas y reprobadas durante su primer semestre cursado.<br/><br/>Cada uno de los cuadros representa al 1% de los estudiantes. El color asociado al cuadro evidenciará si los estudiantes aprobaron o no todas sus asignaturas. <br/>",
+                            "levels" : []
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    
+    "references" : [
+        {
+            "reference" : "<i>Truffello, Irene; Pérez, Fernando. Las Estrategias de Aprendizaje: una teoría y su aplicación en terreno, Revista Pensamiento Educativo, Facultad de Educación, Pontificia Universidad Católica de Chile, ISSN 0717 - 1013, Volumen 16, 115-130, 1995.</i>"
+        },
+        {   
+            "reference" : "<i>F, G. & Musitu, G. (2014). Manual AF-5 Autoconcepto Forma 5. Madrid, España: Tea ediciones.</i>"
+        } 
+    ]
+}
