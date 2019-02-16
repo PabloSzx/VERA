@@ -1,65 +1,66 @@
-<html> 
-    <head>
-        <meta charset="UTF-8" > 
-        <title>VERA</title>
-        <LINK REL="stylesheet" TYPE="text/css" HREF="css/styleDashboard.css">
-        <script src="helpers/moveTabs.js"></script>  
-        <script src="helpers/d3.min.js"></script>   
-         <!-- <script src="http://d3js.org/d3.v3.min.js"></script> --> 
-    </head>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>VERA</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="css/styleDashboard.css" />
+    <script src="helpers/moveTabs.js"></script>
+    <script src="helpers/d3.min.js"></script>
+    <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+  </head>
 
-    <body>
-        <!-- ESQUEMA --> 
+  <body>
+    <!-- ESQUEMA -->
 
-        <div id="top" >
-            <div  id = "logo" class = "logo">       
-                <p id = "title" class= "titleTool">Visualizador de encuestas para reflexión académica</p>
-                <a href="http://ec.europa.eu/programmes/erasmus-plus/node_en" target="_blank"><img id = "erasmus" src="images/erasmus.png" style="width: 55px; height: 40px; float:right;"></a>
-                <a href='https://www.lalaproject.org/es/inicio/' target='_blank'><img id = "lala" src="images/lala.png" style="width: 40px; height: 40px; float:right;"></a>   
-                <a href='http://www.uach.cl/' target='_blank'><img id = "uach" src="images/uach.png" style="width: 40px; height: 40px; float:right;"></a>
-            </div>
-        </div>
+    <div id="top">
+      <div id="logo" class="logo">
+        <p id="title" class="titleTool">
+          Visualizador de encuestas para reflexión académica
+        </p>
+        <a
+          href="http://ec.europa.eu/programmes/erasmus-plus/node_en"
+          target="_blank"
+          ><img
+            id="erasmus"
+            src="images/erasmus.png"
+            style="width: 55px; height: 40px; float:right;"
+        /></a>
+        <a href="https://www.lalaproject.org/es/inicio/" target="_blank"
+          ><img
+            id="lala"
+            src="images/lala.png"
+            style="width: 40px; height: 40px; float:right;"
+        /></a>
+        <a href="http://www.uach.cl/" target="_blank"
+          ><img
+            id="uach"
+            src="images/uach.png"
+            style="width: 40px; height: 40px; float:right;"
+        /></a>
+      </div>
+    </div>
 
-        <div id="dashboard" ></div>
+    <div id="dashboard"></div>
 
-        <!-- Scrips-->
-        
-        <script src="data/surveyText.json" charset="UTF-8"></script>  
-        <script src="data/recommendation.json" charset="UTF-8"></script>        
-        <script type="text/javascript" src="data/surveyResult.json" charset="UTF-8"></script>
+    <!-- Scrips-->
 
+    <script src="bundle.js"></script>
 
-        <script src="script/generateMainTextView.js" charset="UTF-8"></script>
-        <script src="script/generateTextFactorSurvey.js" charset="UTF-8"></script>
-    
-        <script src="script/generateGraph.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionEmotional.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionAcademic.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionSocial.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionPhysical.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionFamily.js" charset="UTF-8"></script>
 
-        <script src="script/generateButtons.js" charset="UTF-8"></script>
-        <script src="script/generateExtension.js" charset="UTF-8"></script>
-        <script src="script/generateAdvice.js" charset="UTF-8"></script>
-        <script src="script/eventOnmouseover.js" charset="UTF-8"></script>
-    
-        <script src="tabs/dimensionEmotional.js" charset="UTF-8"></script>
-        <script src="tabs/dimensionAcademic.js" charset="UTF-8"></script>
-        <script src="tabs/dimensionSocial.js" charset="UTF-8"></script>
-        <script src="tabs/dimensionPhysical.js" charset="UTF-8"></script>
-        <script src="tabs/dimensionFamily.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionMethodical.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionProsecution.js" charset="UTF-8"></script>
 
-        <script src="tabs/dimensionMethodical.js" charset="UTF-8"></script>
-        <script src="tabs/dimensionProsecution.js" charset="UTF-8"></script>
-        
-        <script src="tabs/dimensionDeep.js" charset="UTF-8"></script>
-        <script src="tabs/dimensionElavorative.js" charset="UTF-8"></script>
-        <script src="tabs/dimensionSuperficial.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionDeep.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionElavorative.js" charset="UTF-8"></script>
+    <script src="tabs/dimensionSuperficial.js" charset="UTF-8"></script>
 
-        <script src="tabs/home.js" charset="UTF-8"></script>
-        <script src="tabs/surveyOne.js" charset="UTF-8"></script>
-        <script src="tabs/surveyTwo.js" charset="UTF-8"></script>
-        <script src="helpers/tracker.js"></script>
-        <script src="tabs/startDashboard.js" charset="UTF-8"></script>
-        
-    </body>
+    <script src="tabs/home.js" charset="UTF-8"></script>
+    <script src="tabs/surveyOne.js" charset="UTF-8"></script>
+    <script src="tabs/surveyTwo.js" charset="UTF-8"></script>
+    <script src="helpers/tracker.js"></script>
+  </body>
 </html>
-
-
-

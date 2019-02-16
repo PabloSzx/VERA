@@ -1,8 +1,10 @@
 "use strict";
 
-function teston() {
-    tooltip.pop(this, 'Lorem ipsum dolor...mauris');
-}
-function testout() {
+module.exports = (asd, asd2, asd3) => {
+  function teston() {
+    tooltip.pop(this, "Lorem ipsum dolor...mauris");
+  }
+  function testout() {
     console.log("JEJ2212132E");
-}
+  }
+};
