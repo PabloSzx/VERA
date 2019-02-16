@@ -1,8 +1,355 @@
 "use strict";
 
 const surveyResult = require("../data/surveyResult.json");
+const surveyText = require("../data/surveyText.json");
+module.exports = ({
+  startConstructionAdvice,
+  generateAdviceSurveyOne,
+  generateAdviceSurveyTwo,
+}) => {
+  function containerSectionThree(
+    containerMain,
+    survey,
+    factor,
+    component,
+    startConstructionAdvice
+  ) {
+    var response = surveyText;
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              var containerId =
+                "containerSectionThree" + response.surveys[i].factors[j].id; //containerShowMoreEmotional
+              var containerClass =
+                "containerSectionThree" + response.surveys[i].id;
+              var newContainer = document.createElement("div");
+              newContainer.setAttribute("id", containerId);
+              newContainer.setAttribute("class", containerClass);
+              document.getElementById(containerMain).appendChild(newContainer);
+            }
+          }
+        }
+      }
+      if (survey === "SurveyOne") {
+        startConstructionAdvice(
+          containerId,
+          survey,
+          factor,
+          component,
+          generateAdviceSurveyOne
+        ); //ejecuto func createAdvice, paso identificador del contenedor al que deseo agregar contenido //
+      } else {
+        startConstructionAdvice(
+          containerId,
+          survey,
+          factor,
+          component,
+          generateAdviceSurveyTwo
+        );
+      }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  var containerId =
+                    "containerSectionThree" +
+                    response.surveys[i].factors[j].components[k].id; //containerShowMoreEmotional
+                  var containerClass =
+                    "containerSectionThree" + response.surveys[i].id;
+                  var newContainer = document.createElement("div");
+                  newContainer.setAttribute("id", containerId);
+                  newContainer.setAttribute("class", containerClass);
+                  document
+                    .getElementById(containerMain)
+                    .appendChild(newContainer);
 
-module.exports = ({ containerSectionTwo }) => {
+                  startConstructionAdvice(
+                    containerId,
+                    survey,
+                    factor,
+                    component,
+                    generateAdviceSurveyTwo
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function generateBtnSectionThree(
+    containerMain,
+    survey,
+    factor,
+    component,
+    containerSectionThree
+  ) {
+    // Genera boton para visualizar el primer grafico simulando acordeon //
+    var response = surveyText;
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      var newButton = document.createElement("button");
+      newButton.innerHTML = "¿ Que puedo hacer para mejorar ?";
+      newButton.setAttribute("class", "btnSectionThree close");
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              var onclickName =
+                "sectionThree" + response.surveys[i].factors[j].id + "()"; // SectionThreeEmotional() //
+              newButton.setAttribute("onclick", onclickName);
+              var buttonId =
+                "btnSectionThree" + response.surveys[i].factors[j].id; // lbtnSectionThreeEmotional //
+              newButton.setAttribute("id", buttonId);
+              document.getElementById(containerMain).appendChild(newButton);
+
+              containerSectionThree(
+                containerMain,
+                survey,
+                factor,
+                component,
+                startConstructionAdvice
+              ); // EJecuto containerSectionThree y paso como parametro la función genContainerSectionthree//
+            }
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  var newButton = document.createElement("button");
+                  newButton.innerHTML = "¿ Que puedo hacer para mejorar ?";
+                  newButton.setAttribute("class", "btnSectionThree close");
+                  var onclickName =
+                    "sectionThree" +
+                    response.surveys[i].factors[j].components[k].id +
+                    "()"; // SectionThreeEmotional() //
+                  newButton.setAttribute("onclick", onclickName);
+                  var buttonId =
+                    "btnSectionThree" +
+                    response.surveys[i].factors[j].components[k].id; // lbtnSectionThreeEmotional //
+                  newButton.setAttribute("id", buttonId);
+                  document.getElementById(containerMain).appendChild(newButton);
+
+                  containerSectionThree(
+                    containerMain,
+                    survey,
+                    factor,
+                    component,
+                    startConstructionAdvice
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function createTextIntroSectionTwo(container, survey, factor, component) {
+    //Corresponde a la introdución a el primer grafico //
+    var response = surveyText;
+    var cont = document.createElement("p");
+    var id = "introductionSectionOne" + container;
+    cont.setAttribute("id", id);
+    cont.setAttribute("class", "textIntroductionSectionOne");
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              cont.innerHTML = response.surveys[i].factors[j].textGraphic2;
+              document.getElementById(container).appendChild(cont);
+            }
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  cont.innerHTML =
+                    response.surveys[i].factors[j].components[k].textGraphic2;
+                  document.getElementById(container).appendChild(cont);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function containerSectionTwo(
+    containerMain,
+    survey,
+    factor,
+    component,
+    startConstructionGraphicTwo
+  ) {
+    var response = surveyText;
+    let loginId = localStorage.getItem("idStudent"); // obtengo el id del usuario que ingreso a la herramienta //
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              var containerId =
+                "containerSectionTwo" + response.surveys[i].factors[j].id; //containerSectionTwoEmotional //
+              var containerClass =
+                "containerSectionTwo" + response.surveys[i].id;
+              var newContainer = document.createElement("div");
+              newContainer.setAttribute("id", containerId);
+              newContainer.setAttribute("class", containerClass);
+              document.getElementById(containerMain).appendChild(newContainer);
+              if (survey === "SurveyOne") {
+                createTextIntroSectionTwo(
+                  containerId,
+                  survey,
+                  factor,
+                  component
+                );
+                startConstructionGraphicTwo(
+                  loginId,
+                  containerId,
+                  containerMain,
+                  survey,
+                  factor,
+                  component,
+                  generateGraphTwoSurveyOne
+                );
+              } else {
+                createTextIntroSectionTwo(
+                  containerId,
+                  survey,
+                  factor,
+                  component
+                );
+                startConstructionGraphicTwo(
+                  loginId,
+                  containerId,
+                  containerMain,
+                  survey,
+                  factor,
+                  component,
+                  generateGraphTwoSurveyTwo
+                );
+              }
+            }
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  var containerId =
+                    "containerSectionTwo" +
+                    response.surveys[i].factors[j].components[k].id; //containerSectionTwoDeep //
+                  var containerClass =
+                    "containerSectionTwo" + response.surveys[i].id;
+                  var newContainer = document.createElement("div");
+                  newContainer.setAttribute("id", containerId);
+                  newContainer.setAttribute("class", containerClass);
+                  document
+                    .getElementById(containerMain)
+                    .appendChild(newContainer);
+                }
+              }
+            }
+          }
+        }
+      }
+      createTextIntroSectionTwo(containerId, survey, factor, component);
+      startConstructionGraphicTwo(
+        loginId,
+        containerId,
+        containerMain,
+        survey,
+        factor,
+        component,
+        generateGraphTwoSurveyTwo
+      );
+    }
+  }
+
   function startConstructionGraphicOne(
     loginId,
     containerMain,
@@ -232,119 +579,6 @@ module.exports = ({ containerSectionTwo }) => {
         containerSectionTwo
       );
 
-      // var surveyhttp = new XMLHttpRequest();
-      // surveyhttp.onreadystatechange = function() {
-      //   if (this.readyState == 4 && this.status == 200) {
-      //     var response = JSON.parse(surveyhttp.responseText);
-      //     var veryLow, low, medium, high, veryHigh, levelResponse;
-      //     if (factor === "Methodical") {
-      //       for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //         if (response.result[i].studentId === loginId) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].groupData).length;
-      //             j++
-      //           ) {
-      //             if (response.result[i].groupData[j].factorId === factor) {
-      //               if (response.result[i].groupData[j].levelId === "VeryLow") {
-      //                 veryLow = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Low") {
-      //                 low = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Medium") {
-      //                 medium = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "High") {
-      //                 high = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "VeryHigh") {
-      //                 veryHigh = response.result[i].groupData[j].cohortCount;
-      //               }
-      //             }
-      //           }
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].studentResponses).length;
-      //             j++
-      //           ) {
-      //             if (
-      //               response.result[i].studentResponses[j].factorId === factor
-      //             ) {
-      //               levelResponse =
-      //                 response.result[i].studentResponses[j].levelId;
-      //               //console.log(levelResponse);
-      //             }
-      //           }
-      //         }
-      //       }
-      //     } else {
-      //       for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //         if (response.result[i].studentId === loginId) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].groupData).length;
-      //             j++
-      //           ) {
-      //             if (
-      //               response.result[i].groupData[j].factorId === factor &&
-      //               response.result[i].groupData[j].componentId === component
-      //             ) {
-      //               if (response.result[i].groupData[j].levelId === "VeryLow") {
-      //                 veryLow = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Low") {
-      //                 low = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Medium") {
-      //                 medium = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "High") {
-      //                 high = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "VeryHigh") {
-      //                 veryHigh = response.result[i].groupData[j].cohortCount;
-      //               }
-      //             }
-      //           }
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].studentResponses).length;
-      //             j++
-      //           ) {
-      //             if (
-      //               response.result[i].studentResponses[j].factorId === factor &&
-      //               response.result[i].studentResponses[j].componentId ===
-      //                 component
-      //             ) {
-      //               levelResponse =
-      //                 response.result[i].studentResponses[j].levelId;
-      //               //console.log(response.result[i].studentResponses[j]);
-      //               // console.log(levelResponse);
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      //     generateGraphOne(
-      //       loginId,
-      //       levelResponse,
-      //       containerMain,
-      //       containerSection,
-      //       survey,
-      //       factor,
-      //       component,
-      //       veryLow,
-      //       low,
-      //       medium,
-      //       high,
-      //       veryHigh,
-      //       generateBtnSectionTwo
-      //     );
-      //   }
-      // };
-      // surveyhttp.open("GET", "data/surveyResult.json", true);
-      //surveyhttp.send();
     }
   }
 
@@ -362,7 +596,6 @@ module.exports = ({ containerSectionTwo }) => {
     generateBtnSectionTwo,
     containerSectionTwo
   ) {
-    console.log("me llaman!!!");
     var totalRow = Math.round(Math.max(improve, enrich, persist) / 10 + 0.4);
     var maxHeight = 45 + totalRow * 18 + 30; // el largo del contenedor suma del espacio para label + las filas y un extra para indicar nivel //
     var maxWidth = 200;
@@ -830,48 +1063,6 @@ module.exports = ({ containerSectionTwo }) => {
         generateBtnSectionThree
       );
 
-      // var surveyhttp = new XMLHttpRequest();
-      // surveyhttp.onreadystatechange = function() {
-      //   if (this.readyState == 4 && this.status == 200) {
-      //     var response = JSON.parse(surveyhttp.responseText);
-      //     var improve, enrich, persist;
-      //     for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //       if (response.result[i].studentId === loginId) {
-      //         for (
-      //           var j = 0;
-      //           j < Object.keys(response.result[i].groupData).length;
-      //           j++
-      //         ) {
-      //           if (response.result[i].groupData[j].factorId === factor) {
-      //             if (response.result[i].groupData[j].levelId === "Improve") {
-      //               improve = response.result[i].groupData[j].historic;
-      //             }
-      //             if (response.result[i].groupData[j].levelId === "Enrich") {
-      //               enrich = response.result[i].groupData[j].historic;
-      //             }
-      //             if (response.result[i].groupData[j].levelId === "Persist") {
-      //               persist = response.result[i].groupData[j].historic;
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      //     generateGraphTwo(
-      //       loginId,
-      //       containerSection,
-      //       containerMain,
-      //       survey,
-      //       factor,
-      //       component,
-      //       improve,
-      //       enrich,
-      //       persist,
-      //       generateBtnSectionThree
-      //     );
-      //   }
-      // };
-      // surveyhttp.open("GET", "data/surveyResult.json", true);
-      //surveyhttp.send();
     } else {
       var response = surveyResult;
       var veryLow, low, medium, high, veryHigh;
@@ -950,89 +1141,6 @@ module.exports = ({ containerSectionTwo }) => {
         generateBtnSectionThree
       );
 
-      // var surveyhttp = new XMLHttpRequest();
-      // surveyhttp.onreadystatechange = function() {
-      //   if (this.readyState == 4 && this.status == 200) {
-      //     var response = JSON.parse(surveyhttp.responseText);
-      //     var veryLow, low, medium, high, veryHigh;
-      //     if (factor === "Methodical") {
-      //       for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //         if (response.result[i].studentId === loginId) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].groupData).length;
-      //             j++
-      //           ) {
-      //             if (response.result[i].groupData[j].factorId === factor) {
-      //               if (response.result[i].groupData[j].levelId === "VeryLow") {
-      //                 veryLow = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Low") {
-      //                 low = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Medium") {
-      //                 medium = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "High") {
-      //                 high = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "VeryHigh") {
-      //                 veryHigh = response.result[i].groupData[j].historic;
-      //               }
-      //             }
-      //           }
-      //         }
-      //       }
-      //     } else {
-      //       for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //         if (response.result[i].studentId === loginId) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].groupData).length;
-      //             j++
-      //           ) {
-      //             if (
-      //               response.result[i].groupData[j].factorId === factor &&
-      //               response.result[i].groupData[j].componentId === component
-      //             ) {
-      //               if (response.result[i].groupData[j].levelId === "VeryLow") {
-      //                 veryLow = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Low") {
-      //                 low = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Medium") {
-      //                 medium = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "High") {
-      //                 high = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "VeryHigh") {
-      //                 veryHigh = response.result[i].groupData[j].historic;
-      //               }
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      //     generateGraphTwo(
-      //       loginId,
-      //       containerSection,
-      //       containerMain,
-      //       survey,
-      //       factor,
-      //       component,
-      //       veryLow,
-      //       low,
-      //       medium,
-      //       high,
-      //       veryHigh,
-      //       generateBtnSectionThree
-      //     );
-      //   }
-      // };
-      // surveyhttp.open("GET", "data/surveyResult.json", true);
-      //surveyhttp.send();
     }
   }
 

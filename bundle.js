@@ -5555,30 +5555,64 @@ module.exports={
 }
 
 },{}],4:[function(require,module,exports){
-const generateExtension = require("./script/generateExtension");
-const { containerSectionTwo } = generateExtension;
+const generateAdvice = require("./script/generateAdvice");
+const {
+  startConstructionAdvice,
+  generateAdviceSurveyOne,
+  generateAdviceSurveyTwo,
+} = generateAdvice;
+
 const generateGraph = require("./script/generateGraph")({
-  containerSectionTwo,
+  startConstructionAdvice,
+  generateAdviceSurveyOne,
+  generateAdviceSurveyTwo,
 });
 const {
+  generateGraphOneSurveyOne,
+  generateGraphTwoSurveyOne,
+  generateGraphTwoSurveyTwo,
   startConstructionGraphicOne,
   startConstructionGraphicTwo,
+  generateGraphOneSurveyTwo,
 } = generateGraph;
 const generateButtons = require("./script/generateButtons")({
   startConstructionGraphicOne,
   startConstructionGraphicTwo,
 });
-const { createButtonFactors } = generateButtons;
+const {
+  createButtonFactors,
+  createButtonFactorsComponent,
+  generateBtnSectionTwo,
+} = generateButtons;
 const generateMainTextView = require("./script/generateMainTextView")({
   createButtonFactors,
 });
+const {
+  createTextIntroSectionOne,
+  getIntroductionText,
+  reference,
+} = generateMainTextView;
+const generateExtension = require("./script/generateExtension")({
+  createTextIntroSectionOne,
+  generateGraphOneSurveyOne,
+  generateGraphTwoSurveyOne,
+  generateGraphTwoSurveyTwo,
+  generateBtnSectionTwo,
+  generateGraphOneSurveyTwo,
+  generateAdviceSurveyTwo,
+});
+const { containerSectionOne } = generateExtension;
+const generateTextFactorSurvey = require("./script/generateTextFactorSurvey")({
+  containerSectionOne,
+  createButtonFactorsComponent,
+});
 
 const eventOnmouseover = require("./script/eventOnmouseover");
-const generateAdvice = require("./script/generateAdvice");
-const generateTextFactorSurvey = require("./script/generateTextFactorSurvey");
-const startDashboard = require("./tabs/startDashboard");
 
-console.log("OK!");
+const startDashboard = require("./tabs/startDashboard")({
+  getIntroductionText,
+  reference,
+});
 
 module.exports = {
   ...eventOnmouseover,
@@ -5590,6 +5624,8 @@ module.exports = {
   ...generateTextFactorSurvey,
   ...startDashboard,
 };
+
+window.onload = startDashboard.startDashboard(startDashboard.mainContainer);
 
 },{"./script/eventOnmouseover":5,"./script/generateAdvice":6,"./script/generateButtons":7,"./script/generateExtension":8,"./script/generateGraph":9,"./script/generateMainTextView":10,"./script/generateTextFactorSurvey":11,"./tabs/startDashboard":12}],5:[function(require,module,exports){
 "use strict";
@@ -5609,7 +5645,7 @@ const surveyText = require("../data/surveyText.json");
 const surveyResult = require("../data/surveyResult.json");
 const recommendation = require("../data/recommendation.json");
 
-exports.startConstructionAdvice = function startConstructionAdvice(
+function startConstructionAdvice(
   containerSection,
   survey,
   factor,
@@ -5674,77 +5710,9 @@ exports.startConstructionAdvice = function startConstructionAdvice(
     }
     generateAdvice(id, factor, survey, component, showAdvice);
   }
+}
 
-  // var surveyhttp = new XMLHttpRequest();
-  // surveyhttp.onreadystatechange = function() {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     var response = JSON.parse(surveyhttp.responseText);
-  //     if (survey === "SurveyOne" || factor === "Methodical") {
-  //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //         if (response.surveys[i].id === survey) {
-  //           for (
-  //             var j = 0;
-  //             j < Object.keys(response.surveys[i].factors).length;
-  //             j++
-  //           ) {
-  //             if (response.surveys[i].factors[j].id === factor) {
-  //               var id = "containerAdvice" + response.surveys[i].factors[j].id; // containerAdviceEmotional //
-  //               var containerAdvice = document.createElement("div");
-  //               var className = "ContainerAdvice";
-  //               containerAdvice.setAttribute("id", id);
-  //               containerAdvice.setAttribute("class", className);
-  //               document
-  //                 .getElementById(containerSection)
-  //                 .appendChild(containerAdvice);
-  //             }
-  //           }
-  //         }
-  //       }
-  //       generateAdvice(id, factor, survey, component, showAdvice);
-  //     } else {
-  //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //         if (response.surveys[i].id === survey) {
-  //           for (
-  //             var j = 0;
-  //             j < Object.keys(response.surveys[i].factors).length;
-  //             j++
-  //           ) {
-  //             if (response.surveys[i].factors[j].id === factor) {
-  //               for (
-  //                 var k = 0;
-  //                 k <
-  //                 Object.keys(response.surveys[i].factors[j].components).length;
-  //                 k++
-  //               ) {
-  //                 if (
-  //                   response.surveys[i].factors[j].components[k].id ===
-  //                   component
-  //                 ) {
-  //                   var id =
-  //                     "containerAdvice" +
-  //                     response.surveys[i].factors[j].components[k].id;
-  //                   var containerAdvice = document.createElement("div");
-  //                   var className = "ContainerAdvice";
-  //                   containerAdvice.setAttribute("id", id);
-  //                   containerAdvice.setAttribute("class", className);
-  //                   document
-  //                     .getElementById(containerSection)
-  //                     .appendChild(containerAdvice);
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //       generateAdvice(id, factor, survey, component, showAdvice);
-  //     }
-  //   }
-  // };
-  //surveyhttp.open("GET", "data/surveyText.json", true);
-  ////surveyhttp.send();
-};
-
-exports.generateAdviceSurveyOne = function generateAdviceSurveyOne(
+function generateAdviceSurveyOne(
   container,
   factor,
   survey,
@@ -5780,44 +5748,9 @@ exports.generateAdviceSurveyOne = function generateAdviceSurveyOne(
       }
     }
   }
+}
 
-  // var surveyhttp = new XMLHttpRequest();
-  // surveyhttp.onreadystatechange = function() {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     var response = JSON.parse(surveyhttp.responseText);
-  //     var levelResponse;
-  //     for (var i = 0; i < Object.keys(response.result).length; i++) {
-  //       if (response.result[i].studentId === loginId) {
-  //         for (
-  //           var j = 0;
-  //           j < Object.keys(response.result[i].studentResponses).length;
-  //           j++
-  //         ) {
-  //           if (response.result[i].studentResponses[j].factorId === factor) {
-  //             console.log(response.result[i].studentResponses[j]);
-  //             levelResponse = response.result[i].studentResponses[j].levelId;
-  //             switch (levelResponse) {
-  //               case "Improve":
-  //                 showAdvice(container, factor, survey, component, "low");
-  //                 break;
-  //               case "Enrich":
-  //                 showAdvice(container, factor, survey, component, "low");
-  //                 break;
-  //               case "Persist":
-  //                 showAdvice(container, factor, survey, component, "high");
-  //                 break;
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // };
-  //surveyhttp.open("GET", "data/surveyResult.json", true);
-  ////surveyhttp.send();
-};
-
-exports.generateAdviceSurveyTwo = function generateAdviceSurveyTwo(
+function generateAdviceSurveyTwo(
   container,
   factor,
   survey,
@@ -5861,47 +5794,6 @@ exports.generateAdviceSurveyTwo = function generateAdviceSurveyTwo(
         }
       }
     }
-
-    // var surveyhttp = new XMLHttpRequest();
-    // surveyhttp.onreadystatechange = function() {
-    //   if (this.readyState == 4 && this.status == 200) {
-    //     var response = JSON.parse(surveyhttp.responseText);
-    //     var levelResponse;
-    //     for (var i = 0; i < Object.keys(response.result).length; i++) {
-    //       if (response.result[i].studentId === loginId) {
-    //         for (
-    //           var j = 0;
-    //           j < Object.keys(response.result[i].studentResponses).length;
-    //           j++
-    //         ) {
-    //           if (response.result[i].studentResponses[j].factorId === factor) {
-    //             console.log(response.result[i].studentResponses[j]);
-    //             levelResponse = response.result[i].studentResponses[j].levelId;
-    //             switch (levelResponse) {
-    //               case "Muy Bajo":
-    //                 showAdvice(container, factor, survey, component, "low");
-    //                 break;
-    //               case "Bajo":
-    //                 showAdvice(container, factor, survey, component, "low");
-    //                 break;
-    //               case "Medio":
-    //                 showAdvice(container, factor, survey, component, "low");
-    //                 break;
-    //               case "Alto":
-    //                 showAdvice(container, factor, survey, component, "high");
-    //                 break;
-    //               case "Muy Alto":
-    //                 showAdvice(container, factor, survey, component, "high");
-    //                 break;
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // };
-    //surveyhttp.open("GET", "data/surveyResult.json", true);
-    ////surveyhttp.send();
   } else {
     var response = surveyResult;
     var levelResponse;
@@ -5939,60 +5831,10 @@ exports.generateAdviceSurveyTwo = function generateAdviceSurveyTwo(
         }
       }
     }
-
-    // var surveyhttp = new XMLHttpRequest();
-    // surveyhttp.onreadystatechange = function() {
-    //   if (this.readyState == 4 && this.status == 200) {
-    //     var response = JSON.parse(surveyhttp.responseText);
-    //     var levelResponse;
-    //     for (var i = 0; i < Object.keys(response.result).length; i++) {
-    //       if (response.result[i].studentId === loginId) {
-    //         for (
-    //           var j = 0;
-    //           j < Object.keys(response.result[i].studentResponses).length;
-    //           j++
-    //         ) {
-    //           if (
-    //             response.result[i].studentResponses[j].factorId === factor &&
-    //             response.result[i].studentResponses[j].componentId === component
-    //           ) {
-    //             console.log(response.result[i].studentResponses[j]);
-    //             levelResponse = response.result[i].studentResponses[j].levelId;
-    //             switch (levelResponse) {
-    //               case "Muy Bajo":
-    //                 showAdvice(container, factor, survey, component, "low");
-    //                 break;
-    //               case "Bajo":
-    //                 showAdvice(container, factor, survey, component, "low");
-    //                 break;
-    //               case "Medio":
-    //                 showAdvice(container, factor, survey, component, "low");
-    //                 break;
-    //               case "Alto":
-    //                 showAdvice(container, factor, survey, component, "high");
-    //                 break;
-    //               case "Muy Alto":
-    //                 showAdvice(container, factor, survey, component, "high");
-    //                 break;
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // };
-    //surveyhttp.open("GET", "data/surveyResult.json", true);
-    ////surveyhttp.send();
   }
-};
+}
 
-exports.showAdvice = function showAdvice(
-  container,
-  factor,
-  survey,
-  component,
-  level
-) {
+function showAdvice(container, factor, survey, component, level) {
   //genero texto de la recomendacion //
   var getRecommendation;
   // factor de estudio metodico y las de autoconcepto cuentan de la misma estructura //
@@ -6050,80 +5892,16 @@ exports.showAdvice = function showAdvice(
   var element = document.createElement("p");
   element.innerHTML = getRecommendation;
   document.getElementById(container).appendChild(element);
+}
 
-  // var surveyhttp = new XMLHttpRequest();
-  // surveyhttp.onreadystatechange = function() {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     // factor de estudio metodico y las de autoconcepto cuentan de la misma estructura //
-  //     var response = JSON.parse(surveyhttp.responseText);
-  //     if (survey === "SurveyOne" || factor === "Methodical") {
-  //       //console.log(response);
-  //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //         if ((response.surveys[i].id = survey)) {
-  //           for (
-  //             var j = 0;
-  //             j < Object.keys(response.surveys[i].factors).length;
-  //             j++
-  //           ) {
-  //             if (response.surveys[i].factors[j].id === factor) {
-  //               if (level === "high") {
-  //                 var getRecommendation = response.surveys[i].factors[j].high;
-  //               } else {
-  //                 var getRecommendation = response.surveys[i].factors[j].low;
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     } else {
-  //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //         if ((response.surveys[i].id = survey)) {
-  //           for (
-  //             var j = 0;
-  //             j < Object.keys(response.surveys[i].factors).length;
-  //             j++
-  //           ) {
-  //             if (response.surveys[i].factors[j].id === factor) {
-  //               for (
-  //                 var k = 0;
-  //                 k <
-  //                 Object.keys(response.surveys[i].factors[j].components).length;
-  //                 k++
-  //               ) {
-  //                 if (
-  //                   response.surveys[i].factors[j].components[k].id ===
-  //                   component
-  //                 ) {
-  //                   if (level === "high") {
-  //                     var getRecommendation =
-  //                       response.surveys[i].factors[j].components[k].high;
-  //                   } else {
-  //                     var getRecommendation =
-  //                       response.surveys[i].factors[j].components[k].low;
-  //                   }
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //     var element = document.createElement("p");
-  //     element.innerHTML = getRecommendation;
-  //     document.getElementById(container).appendChild(element);
-  //   }
-  // };
-  //surveyhttp.open("GET", "data/recommendation.json", true);
-  ////surveyhttp.send();
-};
+exports.startConstructionAdvice = startConstructionAdvice;
+exports.showAdvice = showAdvice;
+exports.generateAdviceSurveyTwo = generateAdviceSurveyTwo;
+exports.generateAdviceSurveyOne = generateAdviceSurveyOne;
 
 },{"../data/recommendation.json":1,"../data/surveyResult.json":2,"../data/surveyText.json":3}],7:[function(require,module,exports){
 "use strict";
 const surveyText = require("../data/surveyText.json");
-const surveyResult = require("../data/surveyResult.json");
-const recommendation = require("../data/recommendation.json");
-
-//const = require("./generateGraph");
 
 module.exports = ({
   startConstructionGraphicOne,
@@ -6163,47 +5941,6 @@ module.exports = ({
       cont.setAttribute("class", classView);
       document.getElementById(view).appendChild(cont);
     }
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-
-    //       var countFactors = Object.keys(response.surveys[survey].factors).length; // Entrega la cantidad de factores que posee la encuesta //
-    //       var nameSurvey = response.surveys[survey].id; // Nombre de la encuesta para la cual debo generar los btns (Selfconcept or LearningStrategy)//
-
-    //       var containerButtons = document.createElement("div"); // Genero el contenedor de btnes para las dimensiones del autoconcepto dada la cantidad de factores //
-    //       var idContainerButton = "containerBtn" + nameSurvey; // containerBtnSelfconcept //
-    //       containerButtons.setAttribute("id", idContainerButton);
-    //       var classContBtn = "containerButton" + nameSurvey; //containerButtonSelfconcept //
-    //       containerButtons.setAttribute("class", classContBtn);
-    //       document.getElementById(view).appendChild(containerButtons);
-
-    //       for (var i = 0; i < countFactors; i++) {
-    //         // Creo btn segun la cantidad de dimensiones de cada encuesta //
-    //         var btn = document.createElement("button");
-    //         btn.innerHTML = response.surveys[survey].factors[i].label; // Obtengo label de cada factor de las encuestas //
-    //         var onclickName =
-    //           "view" + response.surveys[survey].factors[i].id + "()"; //viewEmotional --> funcion onclick //
-    //         btn.setAttribute("onclick", onclickName);
-    //         var classBtn = "button" + nameSurvey; //buttonSelfconcept //
-    //         btn.setAttribute("class", classBtn);
-    //         var idButton = "button" + response.surveys[survey].factors[i].id; //ButtonEmotional
-    //         btn.setAttribute("id", idButton);
-    //         document.getElementById(idContainerButton).appendChild(btn); //agregro cada btn generado al contenedor recientemente generado //
-
-    //         var cont = document.createElement("div"); // Contenedor que contendra los elementos de cada factor de cada una de las encuestas, Se generara cuando presione un el btn correspondiente a la dimension //
-    //         var idContainer =
-    //           "view" + nameSurvey + response.surveys[survey].factors[i].id; //viewSelfconceptEmotional
-    //         cont.setAttribute("id", idContainer);
-    //         var classView = "containerDimension" + nameSurvey; // containerDimensionSelfconcept //
-    //         cont.setAttribute("class", classView);
-    //         document.getElementById(view).appendChild(cont);
-    //       }
-    //     }
-    //   };
-    //   surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
 
   function createButtonFactorsComponent(survey, factor, container) {
@@ -6259,67 +5996,6 @@ module.exports = ({
         }
       }
     }
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-
-    //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //         if (response.surveys[i].id === survey) {
-    //           for (
-    //             var j = 0;
-    //             j < Object.keys(response.surveys[i].factors).length;
-    //             j++
-    //           ) {
-    //             if (response.surveys[i].factors[j].id === factor) {
-    //               var countFactors = Object.keys(
-    //                 response.surveys[i].factors[j].components
-    //               ).length; // Entrega la cantidad de factores que posee la encuesta //
-    //               var nameSurvey = response.surveys[i].id + "Component"; // Nombre de la encuesta para la cual debo generar los btns (LearningStrategy)//
-
-    //               var containerButtons = document.createElement("div"); // Genero el contenedor de btnes para las dimensiones  dada la cantidad de factores //
-    //               var idContainerButton = "containerBtn" + nameSurvey; // containerBtnLearningStrategy//
-    //               containerButtons.setAttribute("id", idContainerButton);
-    //               var classContBtn = "containerButton" + nameSurvey; //containerButtonLearningStrategy //
-    //               containerButtons.setAttribute("class", classContBtn);
-    //               document.getElementById(container).appendChild(containerButtons);
-
-    //               for (var k = 0; k < countFactors; k++) {
-    //                 // Creo btn segun la cantidad de dimensiones de cada encuesta //
-    //                 var btn = document.createElement("button");
-    //                 btn.innerHTML =
-    //                   response.surveys[i].factors[j].components[k].label; // Obtengo label de cada factor de las encuestas //
-    //                 var onclickName =
-    //                   "view" +
-    //                   response.surveys[i].factors[j].components[k].id +
-    //                   "()"; //viewEmotional --> funcion onclick //
-    //                 btn.setAttribute("onclick", onclickName);
-    //                 var classBtn = "button" + nameSurvey; //buttonSelfconcept //
-    //                 btn.setAttribute("class", classBtn);
-    //                 var idButton =
-    //                   "button" + response.surveys[i].factors[j].components[k].id; //ButtonEmotional
-    //                 btn.setAttribute("id", idButton);
-    //                 document.getElementById(idContainerButton).appendChild(btn); //agregro cada btn generado al contenedor recientemente generado //
-
-    //                 var cont = document.createElement("div"); // Contenedor que contendra los elementos de cada factor de cada una de las encuestas, Se generara cuando presione un el btn correspondiente a la dimension //
-    //                 var idContainer =
-    //                   "view" +
-    //                   nameSurvey +
-    //                   response.surveys[i].factors[j].components[k].id; // viewLearningStrategyMethodical //
-    //                 cont.setAttribute("id", idContainer);
-    //                 var classView = "containerDimension" + nameSurvey;
-    //                 cont.setAttribute("class", classView);
-    //                 document.getElementById(container).appendChild(cont);
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   };
-    //surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
 
   function generateBtnSectionOne(
@@ -6452,139 +6128,6 @@ module.exports = ({
         );
       }
     }
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-    //       var newButton = document.createElement("button");
-    //       if (survey === "SurveyOne") {
-    //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //           if (response.surveys[i].id === survey) {
-    //             for (
-    //               var j = 0;
-    //               j < Object.keys(response.surveys[i].factors).length;
-    //               j++
-    //             ) {
-    //               if (response.surveys[i].factors[j].id === factor) {
-    //                 newButton.innerHTML =
-    //                   "Tu " +
-    //                   response.surveys[i].label +
-    //                   " " +
-    //                   response.surveys[i].factors[j].label; // Nombre del boton: TU AUTOCONCEPTO EMOCIONAL //
-    //                 newButton.setAttribute("class", "btnSectionOne close");
-    //                 var onclickName =
-    //                   "sectionOne" + response.surveys[i].factors[j].id + "()"; // showMoreEmotional() //
-    //                 newButton.setAttribute("onclick", onclickName);
-    //                 var buttonId =
-    //                   "btnSectionOne" + response.surveys[i].factors[j].id; // linkShowMoreEmotional //
-    //                 newButton.setAttribute("id", buttonId);
-    //                 document.getElementById(container).appendChild(newButton);
-    //               }
-    //             }
-    //           }
-    //         }
-    //         containerSectionOne(
-    //           container,
-    //           survey,
-    //           factor,
-    //           component,
-    //           startConstructionGraphicOne
-    //         ); // EJecuto containerSectionOne y paso como parametro la función graphicOne //
-    //       } else {
-    //         // Para la encuesta de estrategias de aprendizaje, son diferentes las estructura de nombre //
-    //         if (factor === "Methodical") {
-    //           for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //             if (response.surveys[i].id === survey) {
-    //               for (
-    //                 var j = 0;
-    //                 j < Object.keys(response.surveys[i].factors).length;
-    //                 j++
-    //               ) {
-    //                 if (response.surveys[i].factors[j].id === factor) {
-    //                   newButton.innerHTML =
-    //                     "Tu " + response.surveys[i].factors[j].label;
-    //                   newButton.setAttribute("class", "btnSectionOne close");
-    //                   var onclickName =
-    //                     "sectionOne" + response.surveys[i].factors[j].id + "()"; // showMoreEmotional() //
-    //                   newButton.setAttribute("onclick", onclickName);
-    //                   var buttonId =
-    //                     "btnSectionOne" + response.surveys[i].factors[j].id; // linkShowMoreEmotional //
-    //                   newButton.setAttribute("id", buttonId);
-    //                   document.getElementById(container).appendChild(newButton);
-    //                 }
-    //               }
-    //             }
-    //           }
-    //           containerSectionOne(
-    //             container,
-    //             survey,
-    //             factor,
-    //             component,
-    //             startConstructionGraphicOne
-    //           );
-    //         } else {
-    //           for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //             if (response.surveys[i].id === survey) {
-    //               for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //                 if (response.surveys[i].id === survey) {
-    //                   for (
-    //                     var j = 0;
-    //                     j < Object.keys(response.surveys[i].factors).length;
-    //                     j++
-    //                   ) {
-    //                     if (response.surveys[i].factors[j].id === factor) {
-    //                       for (
-    //                         var k = 0;
-    //                         k <
-    //                         Object.keys(response.surveys[i].factors[j].components)
-    //                           .length;
-    //                         k++
-    //                       ) {
-    //                         if (
-    //                           response.surveys[i].factors[j].components[k].id ===
-    //                           component
-    //                         ) {
-    //                           newButton.innerHTML =
-    //                             "Tu nivel de procesamiento " +
-    //                             response.surveys[i].factors[j].components[k].label;
-    //                           newButton.setAttribute(
-    //                             "class",
-    //                             "btnSectionOne close"
-    //                           );
-    //                           var onclickName =
-    //                             "sectionOne" +
-    //                             response.surveys[i].factors[j].components[k].id +
-    //                             "()";
-    //                           newButton.setAttribute("onclick", onclickName);
-    //                           var buttonId =
-    //                             "btnSectionOne" +
-    //                             response.surveys[i].factors[j].components[k].id;
-    //                           newButton.setAttribute("id", buttonId);
-    //                           document
-    //                             .getElementById(container)
-    //                             .appendChild(newButton);
-    //                         }
-    //                       }
-    //                     }
-    //                   }
-    //                 }
-    //               }
-    //             }
-    //           }
-    //           containerSectionOne(
-    //             container,
-    //             survey,
-    //             factor,
-    //             component,
-    //             startConstructionGraphicOne
-    //           );
-    //         }
-    //       }
-    //     }
-    //   };
-    //   surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
 
   function generateBtnSectionTwo(
@@ -6672,94 +6215,6 @@ module.exports = ({
         startConstructionGraphicTwo
       );
     }
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-    //       if (survey === "SurveyOne" || factor === "Methodical") {
-    //         var newButton = document.createElement("button");
-    //         newButton.innerHTML = "Promociones anteriores";
-    //         newButton.setAttribute("class", "btnSectionTwo close");
-    //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //           if (response.surveys[i].id === survey) {
-    //             for (
-    //               var j = 0;
-    //               j < Object.keys(response.surveys[i].factors).length;
-    //               j++
-    //             ) {
-    //               if (response.surveys[i].factors[j].id === factor) {
-    //                 var onclickName =
-    //                   "sectionTwo" + response.surveys[i].factors[j].id + "()";
-    //                 newButton.setAttribute("onclick", onclickName);
-    //                 var buttonId =
-    //                   "btnSectionTwo" + response.surveys[i].factors[j].id;
-    //                 newButton.setAttribute("id", buttonId);
-    //                 document.getElementById(containerMain).appendChild(newButton);
-
-    //                 containerSectionTwo(
-    //                   containerMain,
-    //                   survey,
-    //                   factor,
-    //                   component,
-    //                   startConstructionGraphicTwo
-    //                 );
-    //               }
-    //             }
-    //           }
-    //         }
-    //       } else {
-    //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //           if (response.surveys[i].id === survey) {
-    //             for (
-    //               var j = 0;
-    //               j < Object.keys(response.surveys[i].factors).length;
-    //               j++
-    //             ) {
-    //               if (response.surveys[i].factors[j].id === factor) {
-    //                 for (
-    //                   var k = 0;
-    //                   k <
-    //                   Object.keys(response.surveys[i].factors[j].components).length;
-    //                   k++
-    //                 ) {
-    //                   if (
-    //                     response.surveys[i].factors[j].components[k].id ===
-    //                     component
-    //                   ) {
-    //                     var newButton = document.createElement("button");
-    //                     newButton.innerHTML = "Promociones anteriores";
-    //                     newButton.setAttribute("class", "btnSectionTwo close");
-    //                     var onclickName =
-    //                       "sectionTwo" +
-    //                       response.surveys[i].factors[j].components[k].id +
-    //                       "()";
-    //                     newButton.setAttribute("onclick", onclickName);
-    //                     var buttonId =
-    //                       "btnSectionTwo" +
-    //                       response.surveys[i].factors[j].components[k].id; //linkShowMoreEmotional //
-    //                     newButton.setAttribute("id", buttonId);
-    //                     document
-    //                       .getElementById(containerMain)
-    //                       .appendChild(newButton);
-    //                   }
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //         containerSectionTwo(
-    //           containerMain,
-    //           survey,
-    //           factor,
-    //           component,
-    //           startConstructionGraphicTwo
-    //         );
-    //       }
-    //     }
-    //   };
-    //   surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
 
   function generateBtnSectionThree(
@@ -6848,95 +6303,6 @@ module.exports = ({
         }
       }
     }
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-    //       if (survey === "SurveyOne" || factor === "Methodical") {
-    //         var newButton = document.createElement("button");
-    //         newButton.innerHTML = "¿ Que puedo hacer para mejorar ?";
-    //         newButton.setAttribute("class", "btnSectionThree close");
-    //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //           if (response.surveys[i].id === survey) {
-    //             for (
-    //               var j = 0;
-    //               j < Object.keys(response.surveys[i].factors).length;
-    //               j++
-    //             ) {
-    //               if (response.surveys[i].factors[j].id === factor) {
-    //                 var onclickName =
-    //                   "sectionThree" + response.surveys[i].factors[j].id + "()"; // SectionThreeEmotional() //
-    //                 newButton.setAttribute("onclick", onclickName);
-    //                 var buttonId =
-    //                   "btnSectionThree" + response.surveys[i].factors[j].id; // lbtnSectionThreeEmotional //
-    //                 newButton.setAttribute("id", buttonId);
-    //                 document.getElementById(containerMain).appendChild(newButton);
-
-    //                 containerSectionThree(
-    //                   containerMain,
-    //                   survey,
-    //                   factor,
-    //                   component,
-    //                   startConstructionAdvice
-    //                 ); // EJecuto containerSectionThree y paso como parametro la función genContainerSectionthree//
-    //               }
-    //             }
-    //           }
-    //         }
-    //       } else {
-    //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //           if (response.surveys[i].id === survey) {
-    //             for (
-    //               var j = 0;
-    //               j < Object.keys(response.surveys[i].factors).length;
-    //               j++
-    //             ) {
-    //               if (response.surveys[i].factors[j].id === factor) {
-    //                 for (
-    //                   var k = 0;
-    //                   k <
-    //                   Object.keys(response.surveys[i].factors[j].components).length;
-    //                   k++
-    //                 ) {
-    //                   if (
-    //                     response.surveys[i].factors[j].components[k].id ===
-    //                     component
-    //                   ) {
-    //                     var newButton = document.createElement("button");
-    //                     newButton.innerHTML = "¿ Que puedo hacer para mejorar ?";
-    //                     newButton.setAttribute("class", "btnSectionThree close");
-    //                     var onclickName =
-    //                       "sectionThree" +
-    //                       response.surveys[i].factors[j].components[k].id +
-    //                       "()"; // SectionThreeEmotional() //
-    //                     newButton.setAttribute("onclick", onclickName);
-    //                     var buttonId =
-    //                       "btnSectionThree" +
-    //                       response.surveys[i].factors[j].components[k].id; // lbtnSectionThreeEmotional //
-    //                     newButton.setAttribute("id", buttonId);
-    //                     document
-    //                       .getElementById(containerMain)
-    //                       .appendChild(newButton);
-
-    //                     containerSectionThree(
-    //                       containerMain,
-    //                       survey,
-    //                       factor,
-    //                       component,
-    //                       startConstructionAdvice
-    //                     );
-    //                   }
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   };
-    //   surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
 
   return {
@@ -6949,125 +6315,127 @@ module.exports = ({
   };
 };
 
-},{"../data/recommendation.json":1,"../data/surveyResult.json":2,"../data/surveyText.json":3}],8:[function(require,module,exports){
+},{"../data/surveyText.json":3}],8:[function(require,module,exports){
 "use strict";
 
 const surveyText = require("../data/surveyText.json");
-const { createTextIntroSectionOne } = require("./generateMainTextView");
-console.log("1createTextIntroSectionOne :", createTextIntroSectionOne);
-const {
+
+module.exports = ({
+  createTextIntroSectionOne,
   generateGraphOneSurveyOne,
   generateGraphTwoSurveyOne,
   generateGraphTwoSurveyTwo,
-} = require("./generateGraph");
-console.log("1generateGraphOneSurveyOne", generateGraphOneSurveyOne);
-
-const { generateBtnSectionTwo } = require("./generateButtons");
-
-exports.containerSectionOne = function containerSectionOne(
-  container,
-  survey,
-  factor,
-  component,
-  startConstructionGraphicOne
-) {
-  let loginId = localStorage.getItem("idStudent"); // recupero id del estudiante, para poder cargar informacion relacionada //
-  var response = surveyText;
-  if (survey === "SurveyOne" || factor === "Methodical") {
-    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      if (response.surveys[i].id === survey) {
-        for (
-          var j = 0;
-          j < Object.keys(response.surveys[i].factors).length;
-          j++
-        ) {
-          if (response.surveys[i].factors[j].id === factor) {
-            var containerId =
-              "containerSectionOne" + response.surveys[i].factors[j].id; //containerSectionOneEmotional //
-            var containerClass = "containerSectionOne" + response.surveys[i].id;
-            var newContainer = document.createElement("div");
-            newContainer.setAttribute("id", containerId);
-            newContainer.setAttribute("class", containerClass);
-            document.getElementById(container).appendChild(newContainer);
+  generateBtnSectionTwo,
+  generateGraphOneSurveyTwo,
+  generateAdviceSurveyTwo,
+}) => {
+  function containerSectionOne(
+    container,
+    survey,
+    factor,
+    component,
+    startConstructionGraphicOne
+  ) {
+    let loginId = localStorage.getItem("idStudent"); // recupero id del estudiante, para poder cargar informacion relacionada //
+    var response = surveyText;
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              var containerId =
+                "containerSectionOne" + response.surveys[i].factors[j].id; //containerSectionOneEmotional //
+              var containerClass =
+                "containerSectionOne" + response.surveys[i].id;
+              var newContainer = document.createElement("div");
+              newContainer.setAttribute("id", containerId);
+              newContainer.setAttribute("class", containerClass);
+              document.getElementById(container).appendChild(newContainer);
+            }
           }
         }
       }
-    }
-    if (survey === "SurveyOne") {
-      createTextIntroSectionOne(containerId, survey, factor, component); // genero texto de introduccion para el primer grafico //
-      startConstructionGraphicOne(
-        loginId,
-        container,
-        containerId,
-        survey,
-        factor,
-        component,
-        generateGraphOneSurveyOne,
-        generateBtnSectionTwo
-      );
+      if (survey === "SurveyOne") {
+        createTextIntroSectionOne(containerId, survey, factor, component); // genero texto de introduccion para el primer grafico //
+        startConstructionGraphicOne(
+          loginId,
+          container,
+          containerId,
+          survey,
+          factor,
+          component,
+          generateGraphOneSurveyOne,
+          generateBtnSectionTwo
+        );
+      } else {
+        // Para generar graficos de estrategias de aprendizaje, utilizo otros parametros //
+        createTextIntroSectionOne(containerId, survey, factor, component);
+        startConstructionGraphicOne(
+          loginId,
+          container,
+          containerId,
+          survey,
+          factor,
+          component,
+          generateGraphOneSurveyTwo,
+          generateBtnSectionTwo
+        );
+      }
     } else {
-      // Para generar graficos de estrategias de aprendizaje, utilizo otros parametros //
-      createTextIntroSectionOne(containerId, survey, factor, component);
-      startConstructionGraphicOne(
-        loginId,
-        container,
-        containerId,
-        survey,
-        factor,
-        component,
-        generateGraphOneSurveyTwo,
-        generateBtnSectionTwo
-      );
-    }
-  } else {
-    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      if (response.surveys[i].id === survey) {
-        for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-          if (response.surveys[i].id === survey) {
-            for (
-              var j = 0;
-              j < Object.keys(response.surveys[i].factors).length;
-              j++
-            ) {
-              if (response.surveys[i].factors[j].id === factor) {
-                for (
-                  var k = 0;
-                  k <
-                  Object.keys(response.surveys[i].factors[j].components).length;
-                  k++
-                ) {
-                  if (
-                    response.surveys[i].factors[j].components[k].id ===
-                    component
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+            if (response.surveys[i].id === survey) {
+              for (
+                var j = 0;
+                j < Object.keys(response.surveys[i].factors).length;
+                j++
+              ) {
+                if (response.surveys[i].factors[j].id === factor) {
+                  for (
+                    var k = 0;
+                    k <
+                    Object.keys(response.surveys[i].factors[j].components)
+                      .length;
+                    k++
                   ) {
-                    var containerId =
-                      "containerSectionOne" +
-                      response.surveys[i].factors[j].components[k].id;
-                    var containerClass =
-                      "containerSectionOne" + response.surveys[i].id;
-                    var newContainer = document.createElement("div");
-                    newContainer.setAttribute("id", containerId);
-                    newContainer.setAttribute("class", containerClass);
-                    document
-                      .getElementById(container)
-                      .appendChild(newContainer);
-
-                    createTextIntroSectionOne(
-                      containerId,
-                      survey,
-                      factor,
+                    if (
+                      response.surveys[i].factors[j].components[k].id ===
                       component
-                    );
-                    startConstructionGraphicOne(
-                      loginId,
-                      container,
-                      containerId,
-                      survey,
-                      factor,
-                      component,
-                      generateGraphOneSurveyTwo,
-                      generateBtnSectionTwo
-                    ); //envio el id del estudiante, id del contenedor nuevo para agregar elementos y el contenedor principal para luego generar otras secciones //
+                    ) {
+                      var containerId =
+                        "containerSectionOne" +
+                        response.surveys[i].factors[j].components[k].id;
+                      var containerClass =
+                        "containerSectionOne" + response.surveys[i].id;
+                      var newContainer = document.createElement("div");
+                      newContainer.setAttribute("id", containerId);
+                      newContainer.setAttribute("class", containerClass);
+                      document
+                        .getElementById(container)
+                        .appendChild(newContainer);
+
+                      createTextIntroSectionOne(
+                        containerId,
+                        survey,
+                        factor,
+                        component
+                      );
+                      startConstructionGraphicOne(
+                        loginId,
+                        container,
+                        containerId,
+                        survey,
+                        factor,
+                        component,
+                        generateGraphOneSurveyTwo,
+                        generateBtnSectionTwo
+                      ); //envio el id del estudiante, id del contenedor nuevo para agregar elementos y el contenedor principal para luego generar otras secciones //
+                    }
                   }
                 }
               }
@@ -7078,522 +6446,568 @@ exports.containerSectionOne = function containerSectionOne(
     }
   }
 
-  //   var surveyhttp = new XMLHttpRequest();
-  //   surveyhttp.onreadystatechange = function() {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       var response = JSON.parse(surveyhttp.responseText);
-  //       if (survey === "SurveyOne" || factor === "Methodical") {
-  //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //           if (response.surveys[i].id === survey) {
-  //             for (
-  //               var j = 0;
-  //               j < Object.keys(response.surveys[i].factors).length;
-  //               j++
-  //             ) {
-  //               if (response.surveys[i].factors[j].id === factor) {
-  //                 var containerId =
-  //                   "containerSectionOne" + response.surveys[i].factors[j].id; //containerSectionOneEmotional //
-  //                 var containerClass =
-  //                   "containerSectionOne" + response.surveys[i].id;
-  //                 var newContainer = document.createElement("div");
-  //                 newContainer.setAttribute("id", containerId);
-  //                 newContainer.setAttribute("class", containerClass);
-  //                 document.getElementById(container).appendChild(newContainer);
-  //               }
-  //             }
-  //           }
-  //         }
-  //         if (survey === "SurveyOne") {
-  //           createTextIntroSectionOne(containerId, survey, factor, component); // genero texto de introduccion para el primer grafico //
-  //           startConstructionGraphicOne(
-  //             loginId,
-  //             container,
-  //             containerId,
-  //             survey,
-  //             factor,
-  //             component,
-  //             generateGraphOneSurveyOne
-  //           );
-  //         } else {
-  //           // Para generar graficos de estrategias de aprendizaje, utilizo otros parametros //
-  //           createTextIntroSectionOne(containerId, survey, factor, component);
-  //           startConstructionGraphicOne(
-  //             loginId,
-  //             container,
-  //             containerId,
-  //             survey,
-  //             factor,
-  //             component,
-  //             generateGraphOneSurveyTwo
-  //           );
-  //         }
-  //       } else {
-  //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //           if (response.surveys[i].id === survey) {
-  //             for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //               if (response.surveys[i].id === survey) {
-  //                 for (
-  //                   var j = 0;
-  //                   j < Object.keys(response.surveys[i].factors).length;
-  //                   j++
-  //                 ) {
-  //                   if (response.surveys[i].factors[j].id === factor) {
-  //                     for (
-  //                       var k = 0;
-  //                       k <
-  //                       Object.keys(response.surveys[i].factors[j].components)
-  //                         .length;
-  //                       k++
-  //                     ) {
-  //                       if (
-  //                         response.surveys[i].factors[j].components[k].id ===
-  //                         component
-  //                       ) {
-  //                         var containerId =
-  //                           "containerSectionOne" +
-  //                           response.surveys[i].factors[j].components[k].id;
-  //                         var containerClass =
-  //                           "containerSectionOne" + response.surveys[i].id;
-  //                         var newContainer = document.createElement("div");
-  //                         newContainer.setAttribute("id", containerId);
-  //                         newContainer.setAttribute("class", containerClass);
-  //                         document
-  //                           .getElementById(container)
-  //                           .appendChild(newContainer);
-
-  //                         createTextIntroSectionOne(
-  //                           containerId,
-  //                           survey,
-  //                           factor,
-  //                           component
-  //                         );
-  //                         startConstructionGraphicOne(
-  //                           loginId,
-  //                           container,
-  //                           containerId,
-  //                           survey,
-  //                           factor,
-  //                           component,
-  //                           generateGraphOneSurveyTwo
-  //                         ); //envio el id del estudiante, id del contenedor nuevo para agregar elementos y el contenedor principal para luego generar otras secciones //
-  //                       }
-  //                     }
-  //                   }
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   };
-  //   surveyhttp.open("GET", "data/surveyText.json", true);
-  //surveyhttp.send();
-};
-
-exports.containerSectionTwo = function containerSectionTwo(
-  containerMain,
-  survey,
-  factor,
-  component,
-  startConstructionGraphicTwo
-) {
-  var response = surveyText;
-  let loginId = localStorage.getItem("idStudent"); // obtengo el id del usuario que ingreso a la herramienta //
-  if (survey === "SurveyOne" || factor === "Methodical") {
-    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      if (response.surveys[i].id === survey) {
-        for (
-          var j = 0;
-          j < Object.keys(response.surveys[i].factors).length;
-          j++
-        ) {
-          if (response.surveys[i].factors[j].id === factor) {
-            var containerId =
-              "containerSectionTwo" + response.surveys[i].factors[j].id; //containerSectionTwoEmotional //
-            var containerClass = "containerSectionTwo" + response.surveys[i].id;
-            var newContainer = document.createElement("div");
-            newContainer.setAttribute("id", containerId);
-            newContainer.setAttribute("class", containerClass);
-            document.getElementById(containerMain).appendChild(newContainer);
-            if (survey === "SurveyOne") {
-              createTextIntroSectionTwo(containerId, survey, factor, component);
-              startConstructionGraphicTwo(
-                loginId,
-                containerId,
-                containerMain,
-                survey,
-                factor,
-                component,
-                generateGraphTwoSurveyOne
-              );
-            } else {
-              createTextIntroSectionTwo(containerId, survey, factor, component);
-              startConstructionGraphicTwo(
-                loginId,
-                containerId,
-                containerMain,
-                survey,
-                factor,
-                component,
-                generateGraphTwoSurveyTwo
-              );
-            }
-          }
-        }
-      }
-    }
-  } else {
-    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      if (response.surveys[i].id === survey) {
-        for (
-          var j = 0;
-          j < Object.keys(response.surveys[i].factors).length;
-          j++
-        ) {
-          if (response.surveys[i].factors[j].id === factor) {
-            for (
-              var k = 0;
-              k < Object.keys(response.surveys[i].factors[j].components).length;
-              k++
-            ) {
-              if (
-                response.surveys[i].factors[j].components[k].id === component
-              ) {
-                var containerId =
-                  "containerSectionTwo" +
-                  response.surveys[i].factors[j].components[k].id; //containerSectionTwoDeep //
-                var containerClass =
-                  "containerSectionTwo" + response.surveys[i].id;
-                var newContainer = document.createElement("div");
-                newContainer.setAttribute("id", containerId);
-                newContainer.setAttribute("class", containerClass);
-                document
-                  .getElementById(containerMain)
-                  .appendChild(newContainer);
-              }
-            }
-          }
-        }
-      }
-    }
-    createTextIntroSectionTwo(containerId, survey, factor, component);
-    startConstructionGraphicTwo(
-      loginId,
-      containerId,
-      containerMain,
-      survey,
-      factor,
-      component,
-      generateGraphTwoSurveyTwo
-    );
-  }
-
-  //   var surveyhttp = new XMLHttpRequest();
-  //   surveyhttp.onreadystatechange = function() {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       var response = JSON.parse(surveyhttp.responseText);
-  //       let loginId = localStorage.getItem("idStudent"); // obtengo el id del usuario que ingreso a la herramienta //
-  //       if (survey === "SurveyOne" || factor === "Methodical") {
-  //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //           if (response.surveys[i].id === survey) {
-  //             for (
-  //               var j = 0;
-  //               j < Object.keys(response.surveys[i].factors).length;
-  //               j++
-  //             ) {
-  //               if (response.surveys[i].factors[j].id === factor) {
-  //                 var containerId =
-  //                   "containerSectionTwo" + response.surveys[i].factors[j].id; //containerSectionTwoEmotional //
-  //                 var containerClass =
-  //                   "containerSectionTwo" + response.surveys[i].id;
-  //                 var newContainer = document.createElement("div");
-  //                 newContainer.setAttribute("id", containerId);
-  //                 newContainer.setAttribute("class", containerClass);
-  //                 document
-  //                   .getElementById(containerMain)
-  //                   .appendChild(newContainer);
-  //                 if (survey === "SurveyOne") {
-  //                   createTextIntroSectionTwo(
-  //                     containerId,
-  //                     survey,
-  //                     factor,
-  //                     component
-  //                   );
-  //                   startConstructionGraphicTwo(
-  //                     loginId,
-  //                     containerId,
-  //                     containerMain,
-  //                     survey,
-  //                     factor,
-  //                     component,
-  //                     generateGraphTwoSurveyOne
-  //                   );
-  //                 } else {
-  //                   createTextIntroSectionTwo(
-  //                     containerId,
-  //                     survey,
-  //                     factor,
-  //                     component
-  //                   );
-  //                   startConstructionGraphicTwo(
-  //                     loginId,
-  //                     containerId,
-  //                     containerMain,
-  //                     survey,
-  //                     factor,
-  //                     component,
-  //                     generateGraphTwoSurveyTwo
-  //                   );
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       } else {
-  //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //           if (response.surveys[i].id === survey) {
-  //             for (
-  //               var j = 0;
-  //               j < Object.keys(response.surveys[i].factors).length;
-  //               j++
-  //             ) {
-  //               if (response.surveys[i].factors[j].id === factor) {
-  //                 for (
-  //                   var k = 0;
-  //                   k <
-  //                   Object.keys(response.surveys[i].factors[j].components).length;
-  //                   k++
-  //                 ) {
-  //                   if (
-  //                     response.surveys[i].factors[j].components[k].id ===
-  //                     component
-  //                   ) {
-  //                     var containerId =
-  //                       "containerSectionTwo" +
-  //                       response.surveys[i].factors[j].components[k].id; //containerSectionTwoDeep //
-  //                     var containerClass =
-  //                       "containerSectionTwo" + response.surveys[i].id;
-  //                     var newContainer = document.createElement("div");
-  //                     newContainer.setAttribute("id", containerId);
-  //                     newContainer.setAttribute("class", containerClass);
-  //                     document
-  //                       .getElementById(containerMain)
-  //                       .appendChild(newContainer);
-  //                   }
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //         createTextIntroSectionTwo(containerId, survey, factor, component);
-  //         startConstructionGraphicTwo(
-  //           loginId,
-  //           containerId,
-  //           containerMain,
-  //           survey,
-  //           factor,
-  //           component,
-  //           generateGraphTwoSurveyTwo
-  //         );
-  //       }
-  //     }
-  //   };
-  //   surveyhttp.open("GET", "data/surveyText.json", true);
-  //surveyhttp.send();
-};
-
-exports.containerSectionThree = function containerSectionThree(
-  containerMain,
-  survey,
-  factor,
-  component,
-  startConstructionAdvice
-) {
-  var response = surveyText;
-  if (survey === "SurveyOne" || factor === "Methodical") {
-    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      if (response.surveys[i].id === survey) {
-        for (
-          var j = 0;
-          j < Object.keys(response.surveys[i].factors).length;
-          j++
-        ) {
-          if (response.surveys[i].factors[j].id === factor) {
-            var containerId =
-              "containerSectionThree" + response.surveys[i].factors[j].id; //containerShowMoreEmotional
-            var containerClass =
-              "containerSectionThree" + response.surveys[i].id;
-            var newContainer = document.createElement("div");
-            newContainer.setAttribute("id", containerId);
-            newContainer.setAttribute("class", containerClass);
-            document.getElementById(containerMain).appendChild(newContainer);
-          }
-        }
-      }
-    }
-    if (survey === "SurveyOne") {
-      startConstructionAdvice(
-        containerId,
-        survey,
-        factor,
-        component,
-        generateAdviceSurveyOne
-      ); //ejecuto func createAdvice, paso identificador del contenedor al que deseo agregar contenido //
-    } else {
-      startConstructionAdvice(
-        containerId,
-        survey,
-        factor,
-        component,
-        generateAdviceSurveyTwo
-      );
-    }
-  } else {
-    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      if (response.surveys[i].id === survey) {
-        for (
-          var j = 0;
-          j < Object.keys(response.surveys[i].factors).length;
-          j++
-        ) {
-          if (response.surveys[i].factors[j].id === factor) {
-            for (
-              var k = 0;
-              k < Object.keys(response.surveys[i].factors[j].components).length;
-              k++
-            ) {
-              if (
-                response.surveys[i].factors[j].components[k].id === component
-              ) {
-                var containerId =
-                  "containerSectionThree" +
-                  response.surveys[i].factors[j].components[k].id; //containerShowMoreEmotional
-                var containerClass =
-                  "containerSectionThree" + response.surveys[i].id;
-                var newContainer = document.createElement("div");
-                newContainer.setAttribute("id", containerId);
-                newContainer.setAttribute("class", containerClass);
-                document
-                  .getElementById(containerMain)
-                  .appendChild(newContainer);
-
-                startConstructionAdvice(
+  function containerSectionTwo(
+    containerMain,
+    survey,
+    factor,
+    component,
+    startConstructionGraphicTwo
+  ) {
+    var response = surveyText;
+    let loginId = localStorage.getItem("idStudent"); // obtengo el id del usuario que ingreso a la herramienta //
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              var containerId =
+                "containerSectionTwo" + response.surveys[i].factors[j].id; //containerSectionTwoEmotional //
+              var containerClass =
+                "containerSectionTwo" + response.surveys[i].id;
+              var newContainer = document.createElement("div");
+              newContainer.setAttribute("id", containerId);
+              newContainer.setAttribute("class", containerClass);
+              document.getElementById(containerMain).appendChild(newContainer);
+              if (survey === "SurveyOne") {
+                createTextIntroSectionTwo(
                   containerId,
                   survey,
                   factor,
+                  component
+                );
+                startConstructionGraphicTwo(
+                  loginId,
+                  containerId,
+                  containerMain,
+                  survey,
+                  factor,
                   component,
-                  generateAdviceSurveyTwo
+                  generateGraphTwoSurveyOne
+                );
+              } else {
+                createTextIntroSectionTwo(
+                  containerId,
+                  survey,
+                  factor,
+                  component
+                );
+                startConstructionGraphicTwo(
+                  loginId,
+                  containerId,
+                  containerMain,
+                  survey,
+                  factor,
+                  component,
+                  generateGraphTwoSurveyTwo
                 );
               }
             }
           }
         }
       }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  var containerId =
+                    "containerSectionTwo" +
+                    response.surveys[i].factors[j].components[k].id; //containerSectionTwoDeep //
+                  var containerClass =
+                    "containerSectionTwo" + response.surveys[i].id;
+                  var newContainer = document.createElement("div");
+                  newContainer.setAttribute("id", containerId);
+                  newContainer.setAttribute("class", containerClass);
+                  document
+                    .getElementById(containerMain)
+                    .appendChild(newContainer);
+                }
+              }
+            }
+          }
+        }
+      }
+      createTextIntroSectionTwo(containerId, survey, factor, component);
+      startConstructionGraphicTwo(
+        loginId,
+        containerId,
+        containerMain,
+        survey,
+        factor,
+        component,
+        generateGraphTwoSurveyTwo
+      );
     }
   }
 
-  //   var surveyhttp = new XMLHttpRequest();
-  //   surveyhttp.onreadystatechange = function() {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       var response = JSON.parse(surveyhttp.responseText);
-  //       if (survey === "SurveyOne" || factor === "Methodical") {
-  //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //           if (response.surveys[i].id === survey) {
-  //             for (
-  //               var j = 0;
-  //               j < Object.keys(response.surveys[i].factors).length;
-  //               j++
-  //             ) {
-  //               if (response.surveys[i].factors[j].id === factor) {
-  //                 var containerId =
-  //                   "containerSectionThree" + response.surveys[i].factors[j].id; //containerShowMoreEmotional
-  //                 var containerClass =
-  //                   "containerSectionThree" + response.surveys[i].id;
-  //                 var newContainer = document.createElement("div");
-  //                 newContainer.setAttribute("id", containerId);
-  //                 newContainer.setAttribute("class", containerClass);
-  //                 document
-  //                   .getElementById(containerMain)
-  //                   .appendChild(newContainer);
-  //               }
-  //             }
-  //           }
-  //         }
-  //         if (survey === "SurveyOne") {
-  //           startConstructionAdvice(
-  //             containerId,
-  //             survey,
-  //             factor,
-  //             component,
-  //             generateAdviceSurveyOne
-  //           ); //ejecuto func createAdvice, paso identificador del contenedor al que deseo agregar contenido //
-  //         } else {
-  //           startConstructionAdvice(
-  //             containerId,
-  //             survey,
-  //             factor,
-  //             component,
-  //             generateAdviceSurveyTwo
-  //           );
-  //         }
-  //       } else {
-  //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //           if (response.surveys[i].id === survey) {
-  //             for (
-  //               var j = 0;
-  //               j < Object.keys(response.surveys[i].factors).length;
-  //               j++
-  //             ) {
-  //               if (response.surveys[i].factors[j].id === factor) {
-  //                 for (
-  //                   var k = 0;
-  //                   k <
-  //                   Object.keys(response.surveys[i].factors[j].components).length;
-  //                   k++
-  //                 ) {
-  //                   if (
-  //                     response.surveys[i].factors[j].components[k].id ===
-  //                     component
-  //                   ) {
-  //                     var containerId =
-  //                       "containerSectionThree" +
-  //                       response.surveys[i].factors[j].components[k].id; //containerShowMoreEmotional
-  //                     var containerClass =
-  //                       "containerSectionThree" + response.surveys[i].id;
-  //                     var newContainer = document.createElement("div");
-  //                     newContainer.setAttribute("id", containerId);
-  //                     newContainer.setAttribute("class", containerClass);
-  //                     document
-  //                       .getElementById(containerMain)
-  //                       .appendChild(newContainer);
+  function containerSectionThree(
+    containerMain,
+    survey,
+    factor,
+    component,
+    startConstructionAdvice
+  ) {
+    var response = surveyText;
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              var containerId =
+                "containerSectionThree" + response.surveys[i].factors[j].id; //containerShowMoreEmotional
+              var containerClass =
+                "containerSectionThree" + response.surveys[i].id;
+              var newContainer = document.createElement("div");
+              newContainer.setAttribute("id", containerId);
+              newContainer.setAttribute("class", containerClass);
+              document.getElementById(containerMain).appendChild(newContainer);
+            }
+          }
+        }
+      }
+      if (survey === "SurveyOne") {
+        startConstructionAdvice(
+          containerId,
+          survey,
+          factor,
+          component,
+          generateAdviceSurveyOne
+        ); //ejecuto func createAdvice, paso identificador del contenedor al que deseo agregar contenido //
+      } else {
+        startConstructionAdvice(
+          containerId,
+          survey,
+          factor,
+          component,
+          generateAdviceSurveyTwo
+        );
+      }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  var containerId =
+                    "containerSectionThree" +
+                    response.surveys[i].factors[j].components[k].id; //containerShowMoreEmotional
+                  var containerClass =
+                    "containerSectionThree" + response.surveys[i].id;
+                  var newContainer = document.createElement("div");
+                  newContainer.setAttribute("id", containerId);
+                  newContainer.setAttribute("class", containerClass);
+                  document
+                    .getElementById(containerMain)
+                    .appendChild(newContainer);
 
-  //                     startConstructionAdvice(
-  //                       containerId,
-  //                       survey,
-  //                       factor,
-  //                       component,
-  //                       generateAdviceSurveyTwo
-  //                     );
-  //                   }
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   };
-  //   surveyhttp.open("GET", "data/surveyText.json", true);
-  //surveyhttp.send();
+                  startConstructionAdvice(
+                    containerId,
+                    survey,
+                    factor,
+                    component,
+                    generateAdviceSurveyTwo
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return {
+    containerSectionOne,
+    containerSectionTwo,
+    containerSectionThree,
+  };
 };
 
-},{"../data/surveyText.json":3,"./generateButtons":7,"./generateGraph":9,"./generateMainTextView":10}],9:[function(require,module,exports){
+},{"../data/surveyText.json":3}],9:[function(require,module,exports){
 "use strict";
 
 const surveyResult = require("../data/surveyResult.json");
+const surveyText = require("../data/surveyText.json");
+module.exports = ({
+  startConstructionAdvice,
+  generateAdviceSurveyOne,
+  generateAdviceSurveyTwo,
+}) => {
+  function containerSectionThree(
+    containerMain,
+    survey,
+    factor,
+    component,
+    startConstructionAdvice
+  ) {
+    var response = surveyText;
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              var containerId =
+                "containerSectionThree" + response.surveys[i].factors[j].id; //containerShowMoreEmotional
+              var containerClass =
+                "containerSectionThree" + response.surveys[i].id;
+              var newContainer = document.createElement("div");
+              newContainer.setAttribute("id", containerId);
+              newContainer.setAttribute("class", containerClass);
+              document.getElementById(containerMain).appendChild(newContainer);
+            }
+          }
+        }
+      }
+      if (survey === "SurveyOne") {
+        startConstructionAdvice(
+          containerId,
+          survey,
+          factor,
+          component,
+          generateAdviceSurveyOne
+        ); //ejecuto func createAdvice, paso identificador del contenedor al que deseo agregar contenido //
+      } else {
+        startConstructionAdvice(
+          containerId,
+          survey,
+          factor,
+          component,
+          generateAdviceSurveyTwo
+        );
+      }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  var containerId =
+                    "containerSectionThree" +
+                    response.surveys[i].factors[j].components[k].id; //containerShowMoreEmotional
+                  var containerClass =
+                    "containerSectionThree" + response.surveys[i].id;
+                  var newContainer = document.createElement("div");
+                  newContainer.setAttribute("id", containerId);
+                  newContainer.setAttribute("class", containerClass);
+                  document
+                    .getElementById(containerMain)
+                    .appendChild(newContainer);
 
-module.exports = ({ containerSectionTwo }) => {
+                  startConstructionAdvice(
+                    containerId,
+                    survey,
+                    factor,
+                    component,
+                    generateAdviceSurveyTwo
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function generateBtnSectionThree(
+    containerMain,
+    survey,
+    factor,
+    component,
+    containerSectionThree
+  ) {
+    // Genera boton para visualizar el primer grafico simulando acordeon //
+    var response = surveyText;
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      var newButton = document.createElement("button");
+      newButton.innerHTML = "¿ Que puedo hacer para mejorar ?";
+      newButton.setAttribute("class", "btnSectionThree close");
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              var onclickName =
+                "sectionThree" + response.surveys[i].factors[j].id + "()"; // SectionThreeEmotional() //
+              newButton.setAttribute("onclick", onclickName);
+              var buttonId =
+                "btnSectionThree" + response.surveys[i].factors[j].id; // lbtnSectionThreeEmotional //
+              newButton.setAttribute("id", buttonId);
+              document.getElementById(containerMain).appendChild(newButton);
+
+              containerSectionThree(
+                containerMain,
+                survey,
+                factor,
+                component,
+                startConstructionAdvice
+              ); // EJecuto containerSectionThree y paso como parametro la función genContainerSectionthree//
+            }
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  var newButton = document.createElement("button");
+                  newButton.innerHTML = "¿ Que puedo hacer para mejorar ?";
+                  newButton.setAttribute("class", "btnSectionThree close");
+                  var onclickName =
+                    "sectionThree" +
+                    response.surveys[i].factors[j].components[k].id +
+                    "()"; // SectionThreeEmotional() //
+                  newButton.setAttribute("onclick", onclickName);
+                  var buttonId =
+                    "btnSectionThree" +
+                    response.surveys[i].factors[j].components[k].id; // lbtnSectionThreeEmotional //
+                  newButton.setAttribute("id", buttonId);
+                  document.getElementById(containerMain).appendChild(newButton);
+
+                  containerSectionThree(
+                    containerMain,
+                    survey,
+                    factor,
+                    component,
+                    startConstructionAdvice
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function createTextIntroSectionTwo(container, survey, factor, component) {
+    //Corresponde a la introdución a el primer grafico //
+    var response = surveyText;
+    var cont = document.createElement("p");
+    var id = "introductionSectionOne" + container;
+    cont.setAttribute("id", id);
+    cont.setAttribute("class", "textIntroductionSectionOne");
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              cont.innerHTML = response.surveys[i].factors[j].textGraphic2;
+              document.getElementById(container).appendChild(cont);
+            }
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  cont.innerHTML =
+                    response.surveys[i].factors[j].components[k].textGraphic2;
+                  document.getElementById(container).appendChild(cont);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function containerSectionTwo(
+    containerMain,
+    survey,
+    factor,
+    component,
+    startConstructionGraphicTwo
+  ) {
+    var response = surveyText;
+    let loginId = localStorage.getItem("idStudent"); // obtengo el id del usuario que ingreso a la herramienta //
+    if (survey === "SurveyOne" || factor === "Methodical") {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              var containerId =
+                "containerSectionTwo" + response.surveys[i].factors[j].id; //containerSectionTwoEmotional //
+              var containerClass =
+                "containerSectionTwo" + response.surveys[i].id;
+              var newContainer = document.createElement("div");
+              newContainer.setAttribute("id", containerId);
+              newContainer.setAttribute("class", containerClass);
+              document.getElementById(containerMain).appendChild(newContainer);
+              if (survey === "SurveyOne") {
+                createTextIntroSectionTwo(
+                  containerId,
+                  survey,
+                  factor,
+                  component
+                );
+                startConstructionGraphicTwo(
+                  loginId,
+                  containerId,
+                  containerMain,
+                  survey,
+                  factor,
+                  component,
+                  generateGraphTwoSurveyOne
+                );
+              } else {
+                createTextIntroSectionTwo(
+                  containerId,
+                  survey,
+                  factor,
+                  component
+                );
+                startConstructionGraphicTwo(
+                  loginId,
+                  containerId,
+                  containerMain,
+                  survey,
+                  factor,
+                  component,
+                  generateGraphTwoSurveyTwo
+                );
+              }
+            }
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+        if (response.surveys[i].id === survey) {
+          for (
+            var j = 0;
+            j < Object.keys(response.surveys[i].factors).length;
+            j++
+          ) {
+            if (response.surveys[i].factors[j].id === factor) {
+              for (
+                var k = 0;
+                k <
+                Object.keys(response.surveys[i].factors[j].components).length;
+                k++
+              ) {
+                if (
+                  response.surveys[i].factors[j].components[k].id === component
+                ) {
+                  var containerId =
+                    "containerSectionTwo" +
+                    response.surveys[i].factors[j].components[k].id; //containerSectionTwoDeep //
+                  var containerClass =
+                    "containerSectionTwo" + response.surveys[i].id;
+                  var newContainer = document.createElement("div");
+                  newContainer.setAttribute("id", containerId);
+                  newContainer.setAttribute("class", containerClass);
+                  document
+                    .getElementById(containerMain)
+                    .appendChild(newContainer);
+                }
+              }
+            }
+          }
+        }
+      }
+      createTextIntroSectionTwo(containerId, survey, factor, component);
+      startConstructionGraphicTwo(
+        loginId,
+        containerId,
+        containerMain,
+        survey,
+        factor,
+        component,
+        generateGraphTwoSurveyTwo
+      );
+    }
+  }
+
   function startConstructionGraphicOne(
     loginId,
     containerMain,
@@ -7823,119 +7237,6 @@ module.exports = ({ containerSectionTwo }) => {
         containerSectionTwo
       );
 
-      // var surveyhttp = new XMLHttpRequest();
-      // surveyhttp.onreadystatechange = function() {
-      //   if (this.readyState == 4 && this.status == 200) {
-      //     var response = JSON.parse(surveyhttp.responseText);
-      //     var veryLow, low, medium, high, veryHigh, levelResponse;
-      //     if (factor === "Methodical") {
-      //       for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //         if (response.result[i].studentId === loginId) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].groupData).length;
-      //             j++
-      //           ) {
-      //             if (response.result[i].groupData[j].factorId === factor) {
-      //               if (response.result[i].groupData[j].levelId === "VeryLow") {
-      //                 veryLow = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Low") {
-      //                 low = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Medium") {
-      //                 medium = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "High") {
-      //                 high = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "VeryHigh") {
-      //                 veryHigh = response.result[i].groupData[j].cohortCount;
-      //               }
-      //             }
-      //           }
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].studentResponses).length;
-      //             j++
-      //           ) {
-      //             if (
-      //               response.result[i].studentResponses[j].factorId === factor
-      //             ) {
-      //               levelResponse =
-      //                 response.result[i].studentResponses[j].levelId;
-      //               //console.log(levelResponse);
-      //             }
-      //           }
-      //         }
-      //       }
-      //     } else {
-      //       for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //         if (response.result[i].studentId === loginId) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].groupData).length;
-      //             j++
-      //           ) {
-      //             if (
-      //               response.result[i].groupData[j].factorId === factor &&
-      //               response.result[i].groupData[j].componentId === component
-      //             ) {
-      //               if (response.result[i].groupData[j].levelId === "VeryLow") {
-      //                 veryLow = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Low") {
-      //                 low = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Medium") {
-      //                 medium = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "High") {
-      //                 high = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "VeryHigh") {
-      //                 veryHigh = response.result[i].groupData[j].cohortCount;
-      //               }
-      //             }
-      //           }
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].studentResponses).length;
-      //             j++
-      //           ) {
-      //             if (
-      //               response.result[i].studentResponses[j].factorId === factor &&
-      //               response.result[i].studentResponses[j].componentId ===
-      //                 component
-      //             ) {
-      //               levelResponse =
-      //                 response.result[i].studentResponses[j].levelId;
-      //               //console.log(response.result[i].studentResponses[j]);
-      //               // console.log(levelResponse);
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      //     generateGraphOne(
-      //       loginId,
-      //       levelResponse,
-      //       containerMain,
-      //       containerSection,
-      //       survey,
-      //       factor,
-      //       component,
-      //       veryLow,
-      //       low,
-      //       medium,
-      //       high,
-      //       veryHigh,
-      //       generateBtnSectionTwo
-      //     );
-      //   }
-      // };
-      // surveyhttp.open("GET", "data/surveyResult.json", true);
-      //surveyhttp.send();
     }
   }
 
@@ -7953,7 +7254,6 @@ module.exports = ({ containerSectionTwo }) => {
     generateBtnSectionTwo,
     containerSectionTwo
   ) {
-    console.log("me llaman!!!");
     var totalRow = Math.round(Math.max(improve, enrich, persist) / 10 + 0.4);
     var maxHeight = 45 + totalRow * 18 + 30; // el largo del contenedor suma del espacio para label + las filas y un extra para indicar nivel //
     var maxWidth = 200;
@@ -8421,48 +7721,6 @@ module.exports = ({ containerSectionTwo }) => {
         generateBtnSectionThree
       );
 
-      // var surveyhttp = new XMLHttpRequest();
-      // surveyhttp.onreadystatechange = function() {
-      //   if (this.readyState == 4 && this.status == 200) {
-      //     var response = JSON.parse(surveyhttp.responseText);
-      //     var improve, enrich, persist;
-      //     for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //       if (response.result[i].studentId === loginId) {
-      //         for (
-      //           var j = 0;
-      //           j < Object.keys(response.result[i].groupData).length;
-      //           j++
-      //         ) {
-      //           if (response.result[i].groupData[j].factorId === factor) {
-      //             if (response.result[i].groupData[j].levelId === "Improve") {
-      //               improve = response.result[i].groupData[j].historic;
-      //             }
-      //             if (response.result[i].groupData[j].levelId === "Enrich") {
-      //               enrich = response.result[i].groupData[j].historic;
-      //             }
-      //             if (response.result[i].groupData[j].levelId === "Persist") {
-      //               persist = response.result[i].groupData[j].historic;
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      //     generateGraphTwo(
-      //       loginId,
-      //       containerSection,
-      //       containerMain,
-      //       survey,
-      //       factor,
-      //       component,
-      //       improve,
-      //       enrich,
-      //       persist,
-      //       generateBtnSectionThree
-      //     );
-      //   }
-      // };
-      // surveyhttp.open("GET", "data/surveyResult.json", true);
-      //surveyhttp.send();
     } else {
       var response = surveyResult;
       var veryLow, low, medium, high, veryHigh;
@@ -8541,89 +7799,6 @@ module.exports = ({ containerSectionTwo }) => {
         generateBtnSectionThree
       );
 
-      // var surveyhttp = new XMLHttpRequest();
-      // surveyhttp.onreadystatechange = function() {
-      //   if (this.readyState == 4 && this.status == 200) {
-      //     var response = JSON.parse(surveyhttp.responseText);
-      //     var veryLow, low, medium, high, veryHigh;
-      //     if (factor === "Methodical") {
-      //       for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //         if (response.result[i].studentId === loginId) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].groupData).length;
-      //             j++
-      //           ) {
-      //             if (response.result[i].groupData[j].factorId === factor) {
-      //               if (response.result[i].groupData[j].levelId === "VeryLow") {
-      //                 veryLow = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Low") {
-      //                 low = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Medium") {
-      //                 medium = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "High") {
-      //                 high = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "VeryHigh") {
-      //                 veryHigh = response.result[i].groupData[j].historic;
-      //               }
-      //             }
-      //           }
-      //         }
-      //       }
-      //     } else {
-      //       for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //         if (response.result[i].studentId === loginId) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].groupData).length;
-      //             j++
-      //           ) {
-      //             if (
-      //               response.result[i].groupData[j].factorId === factor &&
-      //               response.result[i].groupData[j].componentId === component
-      //             ) {
-      //               if (response.result[i].groupData[j].levelId === "VeryLow") {
-      //                 veryLow = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Low") {
-      //                 low = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Medium") {
-      //                 medium = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "High") {
-      //                 high = response.result[i].groupData[j].historic;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "VeryHigh") {
-      //                 veryHigh = response.result[i].groupData[j].historic;
-      //               }
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      //     generateGraphTwo(
-      //       loginId,
-      //       containerSection,
-      //       containerMain,
-      //       survey,
-      //       factor,
-      //       component,
-      //       veryLow,
-      //       low,
-      //       medium,
-      //       high,
-      //       veryHigh,
-      //       generateBtnSectionThree
-      //     );
-      //   }
-      // };
-      // surveyhttp.open("GET", "data/surveyResult.json", true);
-      //surveyhttp.send();
     }
   }
 
@@ -9777,12 +8952,11 @@ module.exports = ({ containerSectionTwo }) => {
   };
 };
 
-},{"../data/surveyResult.json":2}],10:[function(require,module,exports){
+},{"../data/surveyResult.json":2,"../data/surveyText.json":3}],10:[function(require,module,exports){
 "use strict";
 
 var numberView = 0;
 const surveyText = require("../data/surveyText.json");
-//const = require("./generateButtons");
 
 module.exports = ({ createButtonFactors }) => {
   function getIntroductionText(view) {
@@ -9806,46 +8980,12 @@ module.exports = ({ createButtonFactors }) => {
     container.innerHTML = getText;
     document.getElementById(view).appendChild(container);
 
-    console.log("createButtonFactors", createButtonFactors);
     if (view === "surveyOne") {
       createButtonFactors(0, view); // Para la vista AUTOCONCEPTO, genero los botones de sus dimensiones, paso como parametro la posicion de sus datos en el archivo JSON y el contenedor en el cual se agregara //
     }
     if (view === "surveyTwo") {
       createButtonFactors(1, view);
     }
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-    //       switch (view) {
-    //         case "home":
-    //           var getText = response.home.introduction; // obtengo texto introductorio desde el archivo JSON //
-    //           break;
-    //         case "surveyOne":
-    //           var getText = response.surveys[0].introduction;
-    //           break;
-    //         case "surveyTwo":
-    //           var getText = response.surveys[1].introduction;
-    //           break;
-    //       }
-    //       var container = document.createElement("p");
-    //       var id = "introduction" + view;
-    //       container.setAttribute("id", id);
-    //       container.setAttribute("class", "textIntroduction");
-    //       container.innerHTML = getText;
-    //       document.getElementById(view).appendChild(container);
-
-    //       if (view === "surveyOne") {
-    //         createButtonFactors(0, view); // Para la vista AUTOCONCEPTO, genero los botones de sus dimensiones, paso como parametro la posicion de sus datos en el archivo JSON y el contenedor en el cual se agregara //
-    //       }
-    //       if (view === "surveyTwo") {
-    //         createButtonFactors(1, view);
-    //       }
-    //     }
-    //   };
-    //surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
 
   function reference(container) {
@@ -9866,24 +9006,6 @@ module.exports = ({ createButtonFactors }) => {
       container.innerHTML = getText + "<br/><br/>"; //"<center>" + getText + "</center><br/>";
       document.getElementById("divReference").appendChild(container);
     }
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-    //       var countReferences = Object.keys(response.references).length; // Obtengo la cantidad de referencias en el JSON //
-    //       for (var i = 0; i < countReferences; i++) {
-    //         //Para cada referencia, creo una etiqueta `p` para agregarla //
-    //         var getText = response.references[i].reference;
-    //         var container = document.createElement("p");
-    //         container.setAttribute("class", "referenceText");
-    //         container.innerHTML = getText + "<br/><br/>"; //"<center>" + getText + "</center><br/>";
-    //         document.getElementById("divReference").appendChild(container);
-    //       }
-    //     }
-    //   };
-    //   surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
 
   function createTextIntroSectionOne(container, survey, factor, component) {
@@ -9936,63 +9058,6 @@ module.exports = ({ createButtonFactors }) => {
         }
       }
     }
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-    //       var cont = document.createElement("p");
-    //       var id = "introductionSectionOne" + container;
-    //       cont.setAttribute("id", id);
-    //       cont.setAttribute("class", "textIntroductionSectionOne");
-    //       if (survey === "SurveyOne" || factor === "Methodical") {
-    //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //           if (response.surveys[i].id === survey) {
-    //             for (
-    //               var j = 0;
-    //               j < Object.keys(response.surveys[i].factors).length;
-    //               j++
-    //             ) {
-    //               if (response.surveys[i].factors[j].id === factor) {
-    //                 cont.innerHTML = response.surveys[i].factors[j].textGraphic1;
-    //                 document.getElementById(container).appendChild(cont);
-    //               }
-    //             }
-    //           }
-    //         }
-    //       } else {
-    //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //           if (response.surveys[i].id === survey) {
-    //             for (
-    //               var j = 0;
-    //               j < Object.keys(response.surveys[i].factors).length;
-    //               j++
-    //             ) {
-    //               if (response.surveys[i].factors[j].id === factor) {
-    //                 for (
-    //                   var k = 0;
-    //                   k <
-    //                   Object.keys(response.surveys[i].factors[j].components).length;
-    //                   k++
-    //                 ) {
-    //                   if (
-    //                     response.surveys[i].factors[j].components[k].id ===
-    //                     component
-    //                   ) {
-    //                     cont.innerHTML =
-    //                       response.surveys[i].factors[j].components[k].textGraphic1;
-    //                     document.getElementById(container).appendChild(cont);
-    //                   }
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   };
-    //   surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
   function createTextIntroSectionTwo(container, survey, factor, component) {
     //Corresponde a la introdución a el primer grafico //
@@ -10044,71 +9109,14 @@ module.exports = ({ createButtonFactors }) => {
         }
       }
     }
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-    //       var cont = document.createElement("p");
-    //       var id = "introductionSectionOne" + container;
-    //       cont.setAttribute("id", id);
-    //       cont.setAttribute("class", "textIntroductionSectionOne");
-    //       if (survey === "SurveyOne" || factor === "Methodical") {
-    //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //           if (response.surveys[i].id === survey) {
-    //             for (
-    //               var j = 0;
-    //               j < Object.keys(response.surveys[i].factors).length;
-    //               j++
-    //             ) {
-    //               if (response.surveys[i].factors[j].id === factor) {
-    //                 cont.innerHTML = response.surveys[i].factors[j].textGraphic2;
-    //                 document.getElementById(container).appendChild(cont);
-    //               }
-    //             }
-    //           }
-    //         }
-    //       } else {
-    //         for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //           if (response.surveys[i].id === survey) {
-    //             for (
-    //               var j = 0;
-    //               j < Object.keys(response.surveys[i].factors).length;
-    //               j++
-    //             ) {
-    //               if (response.surveys[i].factors[j].id === factor) {
-    //                 for (
-    //                   var k = 0;
-    //                   k <
-    //                   Object.keys(response.surveys[i].factors[j].components).length;
-    //                   k++
-    //                 ) {
-    //                   if (
-    //                     response.surveys[i].factors[j].components[k].id ===
-    //                     component
-    //                   ) {
-    //                     cont.innerHTML =
-    //                       response.surveys[i].factors[j].components[k].textGraphic2;
-    //                     document.getElementById(container).appendChild(cont);
-    //                   }
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   };
-    //   surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
 
-  exports.createTextIntroSectionOne = createTextIntroSectionOne;
-
-  exports.createTextIntroSectionTwo = createTextIntroSectionTwo;
-  exports.reference = reference;
-
-  exports.getIntroductionText = getIntroductionText;
+  return {
+    createTextIntroSectionOne,
+    createTextIntroSectionTwo,
+    reference,
+    getIntroductionText,
+  };
 };
 
 },{"../data/surveyText.json":3}],11:[function(require,module,exports){
@@ -10116,343 +9124,232 @@ module.exports = ({ createButtonFactors }) => {
 
 const surveyText = require("../data/surveyText.json");
 
-const { containerSectionOne } = require("./generateExtension");
-console.log("2containerSectionOne", containerSectionOne);
-const { createButtonFactorsComponent } = require("./generateButtons");
-console.log("2createButtonFactorsComponent :", createButtonFactorsComponent);
-exports.getIntroductionFactor = function getIntroductionFactor(
-  container,
-  survey,
-  factor,
-  component,
-  generateBtnSectionOne
-) {
-  // Recibo factor (pos de la dimension en el JSON) y view(contenedor donde agrego el elemento) y la fun generateBtnSectionOne //
-  switch (survey) { //genera introducción a cada uno de los factores del autoconcepto
-    case "SurveyOne":
-      var response = surveyText;
-      var text = " ";
-      var element = document.createElement("p");
-      element.setAttribute("class", "textIntroductionSelfconcept");
-      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-        if (response.surveys[i].id === survey) {
-          for (
-            var j = 0;
-            j < Object.keys(response.surveys[i].factors).length;
-            j++
-          ) {
-            if (response.surveys[i].factors[j].id === factor) {
-              text = response.surveys[i].factors[j].text1;
+module.exports = ({ containerSectionOne, createButtonFactorsComponent }) => {
+  function getIntroductionFactor(
+    container,
+    survey,
+    factor,
+    component,
+    generateBtnSectionOne
+  ) {
+    // Recibo factor (pos de la dimension en el JSON) y view(contenedor donde agrego el elemento) y la fun generateBtnSectionOne //
+    switch (survey) { //genera introducción a cada uno de los factores del autoconcepto
+      case "SurveyOne":
+        var response = surveyText;
+        var text = " ";
+        var element = document.createElement("p");
+        element.setAttribute("class", "textIntroductionSelfconcept");
+        for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+          if (response.surveys[i].id === survey) {
+            for (
+              var j = 0;
+              j < Object.keys(response.surveys[i].factors).length;
+              j++
+            ) {
+              if (response.surveys[i].factors[j].id === factor) {
+                text = response.surveys[i].factors[j].text1;
+              }
             }
           }
         }
-      }
-      element.innerHTML = text;
-      document.getElementById(container).appendChild(element);
-      generateBtnSectionOne(
-        container,
-        survey,
-        factor,
-        component,
-        containerSectionOne
-      ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
-
-      //   var surveyhttp = new XMLHttpRequest();
-      //   surveyhttp.onreadystatechange = function() {
-      //     if (this.readyState == 4 && this.status == 200) {
-      //       var response = JSON.parse(surveyhttp.responseText);
-      //       var text = " ";
-      //       var element = document.createElement("p");
-      //       element.setAttribute("class", "textIntroductionSelfconcept");
-      //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      //         if (response.surveys[i].id === survey) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.surveys[i].factors).length;
-      //             j++
-      //           ) {
-      //             if (response.surveys[i].factors[j].id === factor) {
-      //               text = response.surveys[i].factors[j].text1;
-      //             }
-      //           }
-      //         }
-      //       }
-      //       element.innerHTML = text;
-      //       document.getElementById(container).appendChild(element);
-      //       generateBtnSectionOne(
-      //         container,
-      //         survey,
-      //         factor,
-      //         component,
-      //         containerSectionOne
-      //       ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
-      //     }
-      //   };
-      //   surveyhttp.open("GET", "data/surveyText.json", true);
-      //surveyhttp.send();
-      break;
-
-    case "SurveyTwo":
-      var response = surveyText;
-      var text = " ";
-      var element = document.createElement("p");
-      element.setAttribute("class", "textIntroductionLearningStrategy");
-      for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-        if (response.surveys[i].id === survey) {
-          for (
-            var j = 0;
-            j < Object.keys(response.surveys[i].factors).length;
-            j++
-          ) {
-            if (response.surveys[i].factors[j].id === factor) {
-              text = response.surveys[i].factors[j].text1;
-            }
-          }
-        }
-      }
-      element.innerHTML = text;
-      document.getElementById(container).appendChild(element);
-      if (factor === "Methodical") {
+        element.innerHTML = text;
+        document.getElementById(container).appendChild(element);
         generateBtnSectionOne(
           container,
           survey,
           factor,
           component,
           containerSectionOne
-        );
-      } else {
-        createButtonFactorsComponent(survey, factor, container); //Si se trata de la sección de procesamiento creo los btn de sus factores //
-      }
+        ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
 
-      //   var surveyhttp = new XMLHttpRequest();
-      //   surveyhttp.onreadystatechange = function() {
-      //     if (this.readyState == 4 && this.status == 200) {
-      //       var response = JSON.parse(surveyhttp.responseText);
-      //       var text = " ";
-      //       var element = document.createElement("p");
-      //       element.setAttribute("class", "textIntroductionLearningStrategy");
-      //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      //         if (response.surveys[i].id === survey) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.surveys[i].factors).length;
-      //             j++
-      //           ) {
-      //             if (response.surveys[i].factors[j].id === factor) {
-      //               text = response.surveys[i].factors[j].text1;
-      //             }
-      //           }
-      //         }
-      //       }
-      //       element.innerHTML = text;
-      //       document.getElementById(container).appendChild(element);
-      //       if (factor === "Methodical") {
-      //         generateBtnSectionOne(
-      //           container,
-      //           survey,
-      //           factor,
-      //           component,
-      //           containerSectionOne
-      //         );
-      //       } else {
-      //         createButtonFactorsComponent(survey, factor, container); //Si se trata de la sección de procesamiento creo los btn de sus factores //
-      //       }
-      //     }
-      //   };
-      //   surveyhttp.open("GET", "data/surveyText.json", true);
-      //surveyhttp.send();
-      break;
+        break;
+
+      case "SurveyTwo":
+        var response = surveyText;
+        var text = " ";
+        var element = document.createElement("p");
+        element.setAttribute("class", "textIntroductionLearningStrategy");
+        for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+          if (response.surveys[i].id === survey) {
+            for (
+              var j = 0;
+              j < Object.keys(response.surveys[i].factors).length;
+              j++
+            ) {
+              if (response.surveys[i].factors[j].id === factor) {
+                text = response.surveys[i].factors[j].text1;
+              }
+            }
+          }
+        }
+        element.innerHTML = text;
+        document.getElementById(container).appendChild(element);
+        if (factor === "Methodical") {
+          generateBtnSectionOne(
+            container,
+            survey,
+            factor,
+            component,
+            containerSectionOne
+          );
+        } else {
+          createButtonFactorsComponent(survey, factor, container); //Si se trata de la sección de procesamiento creo los btn de sus factores //
+        }
+
+        break;
+    }
   }
-};
 
-exports.getIntroductionComponent = function getIntroductionComponent(
-  container,
-  survey,
-  factor,
-  component,
-  generateBtnSectionOne
-) {
-  /* Intro de cada dimensión de procesamiento de la info */
-  var response = surveyText;
-  var element = document.createElement("p");
-  element.setAttribute("class", "textIntroductionComponentProsecution");
-  for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    if (response.surveys[i].id === survey) {
-      for (
-        var j = 0;
-        j < Object.keys(response.surveys[i].factors).length;
-        j++
-      ) {
-        if (response.surveys[i].factors[j].id === factor) {
-          for (
-            var k = 0;
-            k < Object.keys(response.surveys[i].factors[j].components).length;
-            k++
-          ) {
-            if (response.surveys[i].factors[j].components[k].id === component) {
-              element.innerHTML =
-                response.surveys[i].factors[j].components[k].text1;
-              document.getElementById(container).appendChild(element);
+  function getIntroductionComponent(
+    container,
+    survey,
+    factor,
+    component,
+    generateBtnSectionOne
+  ) {
+    /* Intro de cada dimensión de procesamiento de la info */
+    var response = surveyText;
+    var element = document.createElement("p");
+    element.setAttribute("class", "textIntroductionComponentProsecution");
+    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+      if (response.surveys[i].id === survey) {
+        for (
+          var j = 0;
+          j < Object.keys(response.surveys[i].factors).length;
+          j++
+        ) {
+          if (response.surveys[i].factors[j].id === factor) {
+            for (
+              var k = 0;
+              k < Object.keys(response.surveys[i].factors[j].components).length;
+              k++
+            ) {
+              if (
+                response.surveys[i].factors[j].components[k].id === component
+              ) {
+                element.innerHTML =
+                  response.surveys[i].factors[j].components[k].text1;
+                document.getElementById(container).appendChild(element);
+              }
             }
           }
         }
       }
     }
+
+    generateBtnSectionOne(
+      container,
+      survey,
+      factor,
+      component,
+      containerSectionOne
+    ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
   }
-
-  generateBtnSectionOne(
-    container,
-    survey,
-    factor,
-    component,
-    containerSectionOne
-  ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
-
-  //   var surveyhttp = new XMLHttpRequest();
-  //   surveyhttp.onreadystatechange = function() {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       var response = JSON.parse(surveyhttp.responseText);
-  //       var element = document.createElement("p");
-  //       element.setAttribute("class", "textIntroductionComponentProsecution");
-  //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //         if (response.surveys[i].id === survey) {
-  //           for (
-  //             var j = 0;
-  //             j < Object.keys(response.surveys[i].factors).length;
-  //             j++
-  //           ) {
-  //             if (response.surveys[i].factors[j].id === factor) {
-  //               for (
-  //                 var k = 0;
-  //                 k <
-  //                 Object.keys(response.surveys[i].factors[j].components).length;
-  //                 k++
-  //               ) {
-  //                 if (
-  //                   response.surveys[i].factors[j].components[k].id === component
-  //                 ) {
-  //                   element.innerHTML =
-  //                     response.surveys[i].factors[j].components[k].text1;
-  //                   document.getElementById(container).appendChild(element);
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-
-  //       generateBtnSectionOne(
-  //         container,
-  //         survey,
-  //         factor,
-  //         component,
-  //         containerSectionOne
-  //       ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
-  //     }
-  //   };
-  //   surveyhttp.open("GET", "data/surveyText.json", true);
-  //surveyhttp.send();
+  return {
+    getIntroductionFactor,
+    getIntroductionComponent,
+  };
 };
 
-},{"../data/surveyText.json":3,"./generateButtons":7,"./generateExtension":8}],12:[function(require,module,exports){
+},{"../data/surveyText.json":3}],12:[function(require,module,exports){
 "use strict";
 const surveyText = require("../data/surveyText.json");
-const {
-  getIntroductionText,
-  reference,
-} = require("../script/generateMainTextView");
-window.onload = startDashboard(mainContainer); //funcion que inica el esquema base de la pagina web, entrego como parametro la función que permite visualizar el contenido de INICIO//
-function startDashboard(mainContainer) {
-  var newContainer = document.createElement("div"); //contenedor de los btn principales del dashboard //
-  newContainer.setAttribute("id", "btnContainer");
-  newContainer.setAttribute("class", "containerBtnMain");
-  document.getElementById("dashboard").appendChild(newContainer);
+// const {
+//   getIntroductionText,
+//   reference,
+// } = require("../script/generateMainTextView");
 
-  var response = surveyText;
+module.exports = ({ getIntroductionText, reference }) => {
+  //window.onload = startDashboard(mainContainer); //funcion que inica el esquema base de la pagina web, entrego como parametro la función que permite visualizar el contenido de INICIO//
+  function startDashboard(mainContainer) {
+    var newContainer = document.createElement("div"); //contenedor de los btn principales del dashboard //
+    newContainer.setAttribute("id", "btnContainer");
+    newContainer.setAttribute("class", "containerBtnMain");
+    document.getElementById("dashboard").appendChild(newContainer);
 
-  var newButton = document.createElement("button"); //genero btn del menu de inicio //
-  newButton.setAttribute("id", "buttonHome");
-  newButton.setAttribute("class", "buttonMain");
-  newButton.setAttribute("onclick", "home()");
-  newButton.innerHTML = "INICIO";
-  document.getElementById("btnContainer").appendChild(newButton);
+    var response = surveyText;
 
-  for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    var newButton = document.createElement("button");
-    var id = "button" + response.surveys[i].id;
-    var onclick = "open" + response.surveys[i].id + "()";
-    newButton.setAttribute("id", id);
+    var newButton = document.createElement("button"); //genero btn del menu de inicio //
+    newButton.setAttribute("id", "buttonHome");
     newButton.setAttribute("class", "buttonMain");
-    newButton.setAttribute("onclick", onclick);
-    newButton.innerHTML = response.surveys[i].label;
+    newButton.setAttribute("onclick", "home()");
+    newButton.innerHTML = "INICIO";
     document.getElementById("btnContainer").appendChild(newButton);
+
+    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+      var newButton = document.createElement("button");
+      var id = "button" + response.surveys[i].id;
+      var onclick = "open" + response.surveys[i].id + "()";
+      newButton.setAttribute("id", id);
+      newButton.setAttribute("class", "buttonMain");
+      newButton.setAttribute("onclick", onclick);
+      newButton.innerHTML = response.surveys[i].label;
+      document.getElementById("btnContainer").appendChild(newButton);
+    }
+    mainContainer(showHome); //corre la función mainContainer y paso como parametro la función showHome
+
+    //var xhttp = new XMLHttpRequest();
+    //   xhttp.onreadystatechange = function() {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //       var response = JSON.parse(xhttp.responseText);
+
+    //       var newButton = document.createElement("button"); //genero btn del menu de inicio //
+    //       newButton.setAttribute("id", "buttonHome");
+    //       newButton.setAttribute("class", "buttonMain");
+    //       newButton.setAttribute("onclick", "home()");
+    //       newButton.innerHTML = "INICIO";
+    //       document.getElementById("btnContainer").appendChild(newButton);
+
+    //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
+    //         var newButton = document.createElement("button");
+    //         var id = "button" + response.surveys[i].id;
+    //         var onclick = "open" + response.surveys[i].id + "()";
+    //         newButton.setAttribute("id", id);
+    //         newButton.setAttribute("class", "buttonMain");
+    //         newButton.setAttribute("onclick", onclick);
+    //         newButton.innerHTML = response.surveys[i].label;
+    //         document.getElementById("btnContainer").appendChild(newButton);
+    //       }
+    //       mainContainer(showHome); //corre la función mainContainer y paso como parametro la función showHome
+    //     }
+    //   };
+    //xhttp.open("GET", "data/surveyText.json", true);
+    //xhttp.send();
   }
-  mainContainer(showHome); //corre la función mainContainer y paso como parametro la función showHome
 
-  //var xhttp = new XMLHttpRequest();
-  //   xhttp.onreadystatechange = function() {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       var response = JSON.parse(xhttp.responseText);
+  function mainContainer(showHome) {
+    // genero los contenedores principales, para que despues pueda agregar todo el contenido necesario //
+    var containerHome = document.createElement("div");
+    containerHome.setAttribute("id", "home");
+    containerHome.setAttribute("class", "containerViewMain");
+    document.getElementById("dashboard").appendChild(containerHome);
 
-  //       var newButton = document.createElement("button"); //genero btn del menu de inicio //
-  //       newButton.setAttribute("id", "buttonHome");
-  //       newButton.setAttribute("class", "buttonMain");
-  //       newButton.setAttribute("onclick", "home()");
-  //       newButton.innerHTML = "INICIO";
-  //       document.getElementById("btnContainer").appendChild(newButton);
+    var containerSurveyOne = document.createElement("div");
+    containerSurveyOne.setAttribute("id", "surveyOne");
+    containerSurveyOne.setAttribute("class", "containerViewMain");
+    document.getElementById("dashboard").appendChild(containerSurveyOne);
 
-  //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-  //         var newButton = document.createElement("button");
-  //         var id = "button" + response.surveys[i].id;
-  //         var onclick = "open" + response.surveys[i].id + "()";
-  //         newButton.setAttribute("id", id);
-  //         newButton.setAttribute("class", "buttonMain");
-  //         newButton.setAttribute("onclick", onclick);
-  //         newButton.innerHTML = response.surveys[i].label;
-  //         document.getElementById("btnContainer").appendChild(newButton);
-  //       }
-  //       mainContainer(showHome); //corre la función mainContainer y paso como parametro la función showHome
-  //     }
-  //   };
-  //xhttp.open("GET", "data/surveyText.json", true);
-  //xhttp.send();
-}
+    var containerSurveyTwo = document.createElement("div");
+    containerSurveyTwo.setAttribute("id", "surveyTwo");
+    containerSurveyTwo.setAttribute("class", "containerViewMain");
+    document.getElementById("dashboard").appendChild(containerSurveyTwo);
 
-function mainContainer(showHome) {
-  // genero los contenedores principales, para que despues pueda agregar todo el contenido necesario //
-  var containerHome = document.createElement("div");
-  containerHome.setAttribute("id", "home");
-  containerHome.setAttribute("class", "containerViewMain");
-  document.getElementById("dashboard").appendChild(containerHome);
+    showHome(loadItems); //inicia la función showHome //
+  }
 
-  var containerSurveyOne = document.createElement("div");
-  containerSurveyOne.setAttribute("id", "surveyOne");
-  containerSurveyOne.setAttribute("class", "containerViewMain");
-  document.getElementById("dashboard").appendChild(containerSurveyOne);
+  function showHome(loadItems) {
+    // Permite que al iniciar la página esta cargue el contenido de la pestaña de inicio //
+    openMe("home", "buttonHome"); //home: nombre del contenedor, buttonHome: nombre del boton para modificar aspecto //
+    loadItems();
+  }
 
-  var containerSurveyTwo = document.createElement("div");
-  containerSurveyTwo.setAttribute("id", "surveyTwo");
-  containerSurveyTwo.setAttribute("class", "containerViewMain");
-  document.getElementById("dashboard").appendChild(containerSurveyTwo);
+  function loadItems() {
+    getIntroductionText("home"); //Obtengo el texto de introduccion y lo agrega al contenedor home //
+    reference("dashboard"); //con esta función se imprimen toda las referencias en el contenedor dashboard //
+  }
 
-  showHome(loadItems); //inicia la función showHome //
-}
+  return { startDashboard, mainContainer, showHome, loadItems };
+};
 
-function showHome(loadItems) {
-  // Permite que al iniciar la página esta cargue el contenido de la pestaña de inicio //
-  openMe("home", "buttonHome"); //home: nombre del contenedor, buttonHome: nombre del boton para modificar aspecto //
-  loadItems();
-}
-
-function loadItems() {
-  getIntroductionText("home"); //Obtengo el texto de introduccion y lo agrega al contenedor home //
-  reference("dashboard"); //con esta función se imprimen toda las referencias en el contenedor dashboard //
-}
-
-exports.startDashboard = startDashboard;
-exports.mainContainer = mainContainer;
-exports.showHome = showHome;
-exports.loadItems = loadItems;
-
-},{"../data/surveyText.json":3,"../script/generateMainTextView":10}]},{},[4])(4)
+},{"../data/surveyText.json":3}]},{},[4])(4)
 });

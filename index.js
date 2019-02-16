@@ -1,34 +1,61 @@
-const generateExtension = require("./script/generateExtension")({
-  createTextIntroSectionOne,
+const generateAdvice = require("./script/generateAdvice");
+const {
+  startConstructionAdvice,
+  generateAdviceSurveyOne,
+  generateAdviceSurveyTwo,
+} = generateAdvice;
+
+const generateGraph = require("./script/generateGraph")({
+  startConstructionAdvice,
+  generateAdviceSurveyOne,
+  generateAdviceSurveyTwo,
+});
+const {
   generateGraphOneSurveyOne,
   generateGraphTwoSurveyOne,
   generateGraphTwoSurveyTwo,
-});
-const { containerSectionTwo } = generateExtension;
-const generateGraph = require("./script/generateGraph")({
-  containerSectionTwo,
-});
-const {
   startConstructionGraphicOne,
   startConstructionGraphicTwo,
+  generateGraphOneSurveyTwo,
 } = generateGraph;
 const generateButtons = require("./script/generateButtons")({
   startConstructionGraphicOne,
   startConstructionGraphicTwo,
 });
-const { createButtonFactors } = generateButtons;
+const {
+  createButtonFactors,
+  createButtonFactorsComponent,
+  generateBtnSectionTwo,
+} = generateButtons;
 const generateMainTextView = require("./script/generateMainTextView")({
   createButtonFactors,
 });
-
-const eventOnmouseover = require("./script/eventOnmouseover");
-const generateAdvice = require("./script/generateAdvice");
+const {
+  createTextIntroSectionOne,
+  getIntroductionText,
+  reference,
+} = generateMainTextView;
+const generateExtension = require("./script/generateExtension")({
+  createTextIntroSectionOne,
+  generateGraphOneSurveyOne,
+  generateGraphTwoSurveyOne,
+  generateGraphTwoSurveyTwo,
+  generateBtnSectionTwo,
+  generateGraphOneSurveyTwo,
+  generateAdviceSurveyTwo,
+});
+const { containerSectionOne } = generateExtension;
 const generateTextFactorSurvey = require("./script/generateTextFactorSurvey")({
+  containerSectionOne,
   createButtonFactorsComponent,
 });
-const startDashboard = require("./tabs/startDashboard");
 
-console.log("OK!");
+const eventOnmouseover = require("./script/eventOnmouseover");
+
+const startDashboard = require("./tabs/startDashboard")({
+  getIntroductionText,
+  reference,
+});
 
 module.exports = {
   ...eventOnmouseover,
@@ -40,3 +67,5 @@ module.exports = {
   ...generateTextFactorSurvey,
   ...startDashboard,
 };
+
+window.onload = startDashboard.startDashboard(startDashboard.mainContainer);

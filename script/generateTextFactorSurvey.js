@@ -2,12 +2,7 @@
 
 const surveyText = require("../data/surveyText.json");
 
-const { containerSectionOne } = require("./generateExtension");
-console.log("2containerSectionOne", containerSectionOne);
-const { createButtonFactorsComponent } = require("./generateButtons");
-console.log("2createButtonFactorsComponent :", createButtonFactorsComponent);
-
-module.exports = ({ createButtonFactorsComponent }) => {
+module.exports = ({ containerSectionOne, createButtonFactorsComponent }) => {
   function getIntroductionFactor(
     container,
     survey,
@@ -45,39 +40,6 @@ module.exports = ({ createButtonFactorsComponent }) => {
           containerSectionOne
         ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
 
-        //   var surveyhttp = new XMLHttpRequest();
-        //   surveyhttp.onreadystatechange = function() {
-        //     if (this.readyState == 4 && this.status == 200) {
-        //       var response = JSON.parse(surveyhttp.responseText);
-        //       var text = " ";
-        //       var element = document.createElement("p");
-        //       element.setAttribute("class", "textIntroductionSelfconcept");
-        //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-        //         if (response.surveys[i].id === survey) {
-        //           for (
-        //             var j = 0;
-        //             j < Object.keys(response.surveys[i].factors).length;
-        //             j++
-        //           ) {
-        //             if (response.surveys[i].factors[j].id === factor) {
-        //               text = response.surveys[i].factors[j].text1;
-        //             }
-        //           }
-        //         }
-        //       }
-        //       element.innerHTML = text;
-        //       document.getElementById(container).appendChild(element);
-        //       generateBtnSectionOne(
-        //         container,
-        //         survey,
-        //         factor,
-        //         component,
-        //         containerSectionOne
-        //       ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
-        //     }
-        //   };
-        //   surveyhttp.open("GET", "data/surveyText.json", true);
-        //surveyhttp.send();
         break;
 
       case "SurveyTwo":
@@ -112,43 +74,6 @@ module.exports = ({ createButtonFactorsComponent }) => {
           createButtonFactorsComponent(survey, factor, container); //Si se trata de la sección de procesamiento creo los btn de sus factores //
         }
 
-        //   var surveyhttp = new XMLHttpRequest();
-        //   surveyhttp.onreadystatechange = function() {
-        //     if (this.readyState == 4 && this.status == 200) {
-        //       var response = JSON.parse(surveyhttp.responseText);
-        //       var text = " ";
-        //       var element = document.createElement("p");
-        //       element.setAttribute("class", "textIntroductionLearningStrategy");
-        //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-        //         if (response.surveys[i].id === survey) {
-        //           for (
-        //             var j = 0;
-        //             j < Object.keys(response.surveys[i].factors).length;
-        //             j++
-        //           ) {
-        //             if (response.surveys[i].factors[j].id === factor) {
-        //               text = response.surveys[i].factors[j].text1;
-        //             }
-        //           }
-        //         }
-        //       }
-        //       element.innerHTML = text;
-        //       document.getElementById(container).appendChild(element);
-        //       if (factor === "Methodical") {
-        //         generateBtnSectionOne(
-        //           container,
-        //           survey,
-        //           factor,
-        //           component,
-        //           containerSectionOne
-        //         );
-        //       } else {
-        //         createButtonFactorsComponent(survey, factor, container); //Si se trata de la sección de procesamiento creo los btn de sus factores //
-        //       }
-        //     }
-        //   };
-        //   surveyhttp.open("GET", "data/surveyText.json", true);
-        //surveyhttp.send();
         break;
     }
   }
@@ -197,51 +122,6 @@ module.exports = ({ createButtonFactorsComponent }) => {
       component,
       containerSectionOne
     ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
-
-    //   var surveyhttp = new XMLHttpRequest();
-    //   surveyhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       var response = JSON.parse(surveyhttp.responseText);
-    //       var element = document.createElement("p");
-    //       element.setAttribute("class", "textIntroductionComponentProsecution");
-    //       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-    //         if (response.surveys[i].id === survey) {
-    //           for (
-    //             var j = 0;
-    //             j < Object.keys(response.surveys[i].factors).length;
-    //             j++
-    //           ) {
-    //             if (response.surveys[i].factors[j].id === factor) {
-    //               for (
-    //                 var k = 0;
-    //                 k <
-    //                 Object.keys(response.surveys[i].factors[j].components).length;
-    //                 k++
-    //               ) {
-    //                 if (
-    //                   response.surveys[i].factors[j].components[k].id === component
-    //                 ) {
-    //                   element.innerHTML =
-    //                     response.surveys[i].factors[j].components[k].text1;
-    //                   document.getElementById(container).appendChild(element);
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-
-    //       generateBtnSectionOne(
-    //         container,
-    //         survey,
-    //         factor,
-    //         component,
-    //         containerSectionOne
-    //       ); // Ejecuto la función que imprime el texto de introduccion. Luego llamo a la función generateBtnSectionOne y paso como parametro containerSectionOne //
-    //     }
-    //   };
-    //   surveyhttp.open("GET", "data/surveyText.json", true);
-    //surveyhttp.send();
   }
   return {
     getIntroductionFactor,
