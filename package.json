@@ -1,7 +1,7 @@
 {
   "name": "VERA",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": "https://github.com/PabloSzx/VERA",
   "author": "PabloSz <pablosaez1995@gmail.com>",
   "license": "MIT",
@@ -9,10 +9,12 @@
     "axios": "^0.18.0",
     "browserify": "^16.2.3",
     "http-server": "^0.11.1",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "mkdirp": "^0.5.1"
   },
   "scripts": {
-    "build": "browserify  index.js --s module > bundle.js",
-    "start": "yarn build && http-server ./"
+    "copy": "cp -r src/* build/",
+    "build": "mkdirp build && browserify src/index.js --s module > build/bundle.js && yarn copy",
+    "start": "yarn build && http-server ./build"
   }
 }
