@@ -1,15 +1,16 @@
 "use strict";
-
-var numberView = 0;
-const surveyText = require("../data/surveyText.json");
+const axios = require("axios");
 
 module.exports = ({ createButtonFactors }) => {
-  function getIntroductionText(view) {
+  async function getIntroductionText(view) {
     // genero contenido de introduccíon para cada una de las vistas //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
+    const introduction = await axios.get("/vera/introduction");
+
     switch (view) {
       case "home":
-        var getText = response.home.introduction; // obtengo texto introductorio desde el archivo JSON //
+        var getText = introduction.data; // obtengo texto introductorio desde el archivo JSON //
         break;
       case "surveyOne":
         var getText = response.surveys[0].introduction;
@@ -33,7 +34,7 @@ module.exports = ({ createButtonFactors }) => {
     }
   }
 
-  function reference(container) {
+  async function reference(container) {
     var referenceContainer = document.createElement("div"); //Se crea el contenedor con las referencias de los textos que se emplearan en el dashboard //
     referenceContainer.setAttribute("id", "divReference");
     referenceContainer.setAttribute("class", "containerReference");
@@ -41,7 +42,8 @@ module.exports = ({ createButtonFactors }) => {
 
     referenceContainer.innerHTML = "<br/><left>REFERENCIAS <br/><br/>";
 
-    var response = surveyText;
+    const references = await axios.get("/vera/references");
+    const response = references.data;
     var countReferences = Object.keys(response.references).length; // Obtengo la cantidad de referencias en el JSON //
     for (var i = 0; i < countReferences; i++) {
       //Para cada referencia, creo una etiqueta `p` para agregarla //
@@ -53,9 +55,15 @@ module.exports = ({ createButtonFactors }) => {
     }
   }
 
-  function createTextIntroSectionOne(container, survey, factor, component) {
+  async function createTextIntroSectionOne(
+    container,
+    survey,
+    factor,
+    component
+  ) {
     //Corresponde a la introdución a el primer grafico //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     var cont = document.createElement("p");
     var id = "introductionSectionOne" + container;
     cont.setAttribute("id", id);
@@ -104,9 +112,15 @@ module.exports = ({ createButtonFactors }) => {
       }
     }
   }
-  function createTextIntroSectionTwo(container, survey, factor, component) {
+  async function createTextIntroSectionTwo(
+    container,
+    survey,
+    factor,
+    component
+  ) {
     //Corresponde a la introdución a el primer grafico //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     var cont = document.createElement("p");
     var id = "introductionSectionOne" + container;
     cont.setAttribute("id", id);

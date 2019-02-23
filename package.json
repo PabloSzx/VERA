@@ -14,7 +14,8 @@
   },
   "scripts": {
     "copy": "cp -r src/* build/",
-    "build": "mkdirp build && browserify src/index.js --s module > build/bundle.js && yarn copy",
+    "build": "mkdirp build && browserify src/index.js --s module > build/bundle.js && yarn buildIndex && yarn copy",
+    "buildIndex": "browserify src/helpers/logicStartUser.js > build/bundleStart.js",
     "start": "yarn build && http-server ./build"
   }
 }
