@@ -40,12 +40,12 @@ function $call(method, url, params, fnCb, doEval, doAlertMsg) {
 }
 
 function track(idStudent, idElement, action) {
-  var url =
-    "http://146.83.216.206/vera/logstudy.php?id=" +
-    idStudent +
-    "&idElement=" +
-    idElement +
-    "&action=" +
-    action;
-  $call("GET", url, null, null, false, false);
+  // var url =
+  //   "http://146.83.216.206/vera/logstudy.php?id=" +
+  //   idStudent +
+  //   "&idElement=" +
+  //   idElement +
+  //   "&action=" +
+  //   action;
+  // $call("GET", url, null, null, false, false);
 }
