@@ -50,15 +50,12 @@ const generateTextFactorSurvey = require("./script/generateTextFactorSurvey")({
   createButtonFactorsComponent,
 });
 
-const eventOnmouseover = require("./script/eventOnmouseover");
-
 const startDashboard = require("./tabs/startDashboard")({
   getIntroductionText,
   reference,
 });
 
 module.exports = {
-  ...eventOnmouseover,
   ...generateAdvice,
   ...generateButtons,
   ...generateExtension,

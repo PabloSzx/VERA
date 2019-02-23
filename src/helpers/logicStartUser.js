@@ -19,7 +19,7 @@ async function startSession() {
     const request = await axios.post("/vera/validateUser", { id });
 
     const access = _.get(request, "data.access", false);
-    console.log("access", access);
+
     if (access == true) {
       goToStudent(id);
     } else {
