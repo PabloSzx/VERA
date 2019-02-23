@@ -1,16 +1,16 @@
 "use strict";
-const surveyText = require("../data/surveyText.json");
-const surveyResult = require("../data/surveyResult.json");
+const axios = require("axios");
 const recommendation = require("../data/recommendation.json");
 
-function startConstructionAdvice(
+async function startConstructionAdvice(
   containerSection,
   survey,
   factor,
   component,
   generateAdvice
 ) {
-  var response = surveyText;
+  const surveys = await axios.get("/vera/surveys");
+  const response = surveys.data;
   if (survey === "SurveyOne" || factor === "Methodical") {
     for (var i = 0; i < Object.keys(response.surveys).length; i++) {
       if (response.surveys[i].id === survey) {
@@ -70,7 +70,7 @@ function startConstructionAdvice(
   }
 }
 
-function generateAdviceSurveyOne(
+async function generateAdviceSurveyOne(
   container,
   factor,
   survey,
@@ -78,37 +78,29 @@ function generateAdviceSurveyOne(
   showAdvice
 ) {
   // genero recomendación para Autoconcepto //
-  let loginId = localStorage.getItem("idStudent");
-  var response = surveyResult;
-  var levelResponse;
-  for (var i = 0; i < Object.keys(response.result).length; i++) {
-    if (response.result[i].studentId === loginId) {
-      for (
-        var j = 0;
-        j < Object.keys(response.result[i].studentResponses).length;
-        j++
-      ) {
-        if (response.result[i].studentResponses[j].factorId === factor) {
-          console.log(response.result[i].studentResponses[j]);
-          levelResponse = response.result[i].studentResponses[j].levelId;
-          switch (levelResponse) {
-            case "Improve":
-              showAdvice(container, factor, survey, component, "low");
-              break;
-            case "Enrich":
-              showAdvice(container, factor, survey, component, "low");
-              break;
-            case "Persist":
-              showAdvice(container, factor, survey, component, "high");
-              break;
-          }
-        }
+  let id = localStorage.getItem("idStudent");
+
+  const response = await axios.post("/vera/result", { id });
+  const result = response.data;
+
+  for (const studentResponse of result.studentResponses) {
+    if (studentResponse.factorId === factor) {
+      switch (studentResponse.levelId) {
+        case "Improve":
+          showAdvice(container, factor, survey, component, "low");
+          break;
+        case "Enrich":
+          showAdvice(container, factor, survey, component, "low");
+          break;
+        case "Persist":
+          showAdvice(container, factor, survey, component, "high");
+          break;
       }
     }
   }
 }
 
-function generateAdviceSurveyTwo(
+async function generateAdviceSurveyTwo(
   container,
   factor,
   survey,
@@ -117,75 +109,54 @@ function generateAdviceSurveyTwo(
 ) {
   // Recomendacion para encuesta estrategias de aprendizaje //
 
-  let loginId = localStorage.getItem("idStudent");
+  let id = localStorage.getItem("idStudent");
+  const response = await axios.post("/vera/result", { id });
+  const result = response.data;
+
   if (factor === "Methodical") {
-    var response = surveyResult;
-    var levelResponse;
-    for (var i = 0; i < Object.keys(response.result).length; i++) {
-      if (response.result[i].studentId === loginId) {
-        for (
-          var j = 0;
-          j < Object.keys(response.result[i].studentResponses).length;
-          j++
-        ) {
-          if (response.result[i].studentResponses[j].factorId === factor) {
-            console.log(response.result[i].studentResponses[j]);
-            levelResponse = response.result[i].studentResponses[j].levelId;
-            switch (levelResponse) {
-              case "Muy Bajo":
-                showAdvice(container, factor, survey, component, "low");
-                break;
-              case "Bajo":
-                showAdvice(container, factor, survey, component, "low");
-                break;
-              case "Medio":
-                showAdvice(container, factor, survey, component, "low");
-                break;
-              case "Alto":
-                showAdvice(container, factor, survey, component, "high");
-                break;
-              case "Muy Alto":
-                showAdvice(container, factor, survey, component, "high");
-                break;
-            }
-          }
+    for (const studentResponse of result.studentResponses) {
+      if (studentResponse.factorId === factor) {
+        switch (studentResponse.levelId) {
+          case "Muy Bajo":
+            showAdvice(container, factor, survey, component, "low");
+            break;
+          case "Bajo":
+            showAdvice(container, factor, survey, component, "low");
+            break;
+          case "Medio":
+            showAdvice(container, factor, survey, component, "low");
+            break;
+          case "Alto":
+            showAdvice(container, factor, survey, component, "high");
+            break;
+          case "Muy Alto":
+            showAdvice(container, factor, survey, component, "high");
+            break;
         }
       }
     }
   } else {
-    var response = surveyResult;
-    var levelResponse;
-    for (var i = 0; i < Object.keys(response.result).length; i++) {
-      if (response.result[i].studentId === loginId) {
-        for (
-          var j = 0;
-          j < Object.keys(response.result[i].studentResponses).length;
-          j++
-        ) {
-          if (
-            response.result[i].studentResponses[j].factorId === factor &&
-            response.result[i].studentResponses[j].componentId === component
-          ) {
-            console.log(response.result[i].studentResponses[j]);
-            levelResponse = response.result[i].studentResponses[j].levelId;
-            switch (levelResponse) {
-              case "Muy Bajo":
-                showAdvice(container, factor, survey, component, "low");
-                break;
-              case "Bajo":
-                showAdvice(container, factor, survey, component, "low");
-                break;
-              case "Medio":
-                showAdvice(container, factor, survey, component, "low");
-                break;
-              case "Alto":
-                showAdvice(container, factor, survey, component, "high");
-                break;
-              case "Muy Alto":
-                showAdvice(container, factor, survey, component, "high");
-                break;
-            }
-          }
+    for (const studentResponse of result.studentResponses) {
+      if (
+        studentResponse.factorId === factor &&
+        studentResponse.componentId === component
+      ) {
+        switch (studentResponse.levelId) {
+          case "Muy Bajo":
+            showAdvice(container, factor, survey, component, "low");
+            break;
+          case "Bajo":
+            showAdvice(container, factor, survey, component, "low");
+            break;
+          case "Medio":
+            showAdvice(container, factor, survey, component, "low");
+            break;
+          case "Alto":
+            showAdvice(container, factor, survey, component, "high");
+            break;
+          case "Muy Alto":
+            showAdvice(container, factor, survey, component, "high");
+            break;
         }
       }
     }
@@ -198,7 +169,6 @@ function showAdvice(container, factor, survey, component, level) {
   // factor de estudio metodico y las de autoconcepto cuentan de la misma estructura //
   var response = recommendation;
   if (survey === "SurveyOne" || factor === "Methodical") {
-    //console.log(response);
     for (var i = 0; i < Object.keys(response.surveys).length; i++) {
       if ((response.surveys[i].id = survey)) {
         for (

@@ -1,9 +1,9 @@
 "use strict";
 
-const surveyText = require("../data/surveyText.json");
+const axios = require("axios");
 
 module.exports = ({ containerSectionOne, createButtonFactorsComponent }) => {
-  function getIntroductionFactor(
+  async function getIntroductionFactor(
     container,
     survey,
     factor,
@@ -11,9 +11,13 @@ module.exports = ({ containerSectionOne, createButtonFactorsComponent }) => {
     generateBtnSectionOne
   ) {
     // Recibo factor (pos de la dimension en el JSON) y view(contenedor donde agrego el elemento) y la fun generateBtnSectionOne //
-    switch (survey) { //genera introducción a cada uno de los factores del autoconcepto
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
+
+    switch (
+      survey //genera introducción a cada uno de los factores del autoconcepto
+    ) {
       case "SurveyOne":
-        var response = surveyText;
         var text = " ";
         var element = document.createElement("p");
         element.setAttribute("class", "textIntroductionSelfconcept");
@@ -43,7 +47,6 @@ module.exports = ({ containerSectionOne, createButtonFactorsComponent }) => {
         break;
 
       case "SurveyTwo":
-        var response = surveyText;
         var text = " ";
         var element = document.createElement("p");
         element.setAttribute("class", "textIntroductionLearningStrategy");
@@ -78,7 +81,7 @@ module.exports = ({ containerSectionOne, createButtonFactorsComponent }) => {
     }
   }
 
-  function getIntroductionComponent(
+  async function getIntroductionComponent(
     container,
     survey,
     factor,
@@ -86,7 +89,8 @@ module.exports = ({ containerSectionOne, createButtonFactorsComponent }) => {
     generateBtnSectionOne
   ) {
     /* Intro de cada dimensión de procesamiento de la info */
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     var element = document.createElement("p");
     element.setAttribute("class", "textIntroductionComponentProsecution");
     for (var i = 0; i < Object.keys(response.surveys).length; i++) {

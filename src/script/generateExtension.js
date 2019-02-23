@@ -1,6 +1,5 @@
 "use strict";
-
-const surveyText = require("../data/surveyText.json");
+const axios = require("axios");
 
 module.exports = ({
   createTextIntroSectionOne,
@@ -11,7 +10,7 @@ module.exports = ({
   generateGraphOneSurveyTwo,
   generateAdviceSurveyTwo,
 }) => {
-  function containerSectionOne(
+  async function containerSectionOne(
     container,
     survey,
     factor,
@@ -19,7 +18,8 @@ module.exports = ({
     startConstructionGraphicOne
   ) {
     let loginId = localStorage.getItem("idStudent"); // recupero id del estudiante, para poder cargar informacion relacionada //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
         if (response.surveys[i].id === survey) {
@@ -128,14 +128,15 @@ module.exports = ({
     }
   }
 
-  function containerSectionTwo(
+  async function containerSectionTwo(
     containerMain,
     survey,
     factor,
     component,
     startConstructionGraphicTwo
   ) {
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     let loginId = localStorage.getItem("idStudent"); // obtengo el id del usuario que ingreso a la herramienta //
     if (survey === "SurveyOne" || factor === "Methodical") {
       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
@@ -239,14 +240,15 @@ module.exports = ({
     }
   }
 
-  function containerSectionThree(
+  async function containerSectionThree(
     containerMain,
     survey,
     factor,
     component,
     startConstructionAdvice
   ) {
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
         if (response.surveys[i].id === survey) {

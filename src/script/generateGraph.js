@@ -1,20 +1,21 @@
 "use strict";
 
-const surveyResult = require("../data/surveyResult.json");
-const surveyText = require("../data/surveyText.json");
+const axios = require("axios");
+
 module.exports = ({
   startConstructionAdvice,
   generateAdviceSurveyOne,
   generateAdviceSurveyTwo,
 }) => {
-  function containerSectionThree(
+  async function containerSectionThree(
     containerMain,
     survey,
     factor,
     component,
     startConstructionAdvice
   ) {
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
         if (response.surveys[i].id === survey) {
@@ -99,7 +100,7 @@ module.exports = ({
     }
   }
 
-  function generateBtnSectionThree(
+  async function generateBtnSectionThree(
     containerMain,
     survey,
     factor,
@@ -107,7 +108,8 @@ module.exports = ({
     containerSectionThree
   ) {
     // Genera boton para visualizar el primer grafico simulando acordeon //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       var newButton = document.createElement("button");
       newButton.innerHTML = "¿ Que puedo hacer para mejorar ?";
@@ -187,9 +189,15 @@ module.exports = ({
     }
   }
 
-  function createTextIntroSectionTwo(container, survey, factor, component) {
+  async function createTextIntroSectionTwo(
+    container,
+    survey,
+    factor,
+    component
+  ) {
     //Corresponde a la introdución a el primer grafico //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     var cont = document.createElement("p");
     var id = "introductionSectionOne" + container;
     cont.setAttribute("id", id);
@@ -239,14 +247,15 @@ module.exports = ({
     }
   }
 
-  function containerSectionTwo(
+  async function containerSectionTwo(
     containerMain,
     survey,
     factor,
     component,
     startConstructionGraphicTwo
   ) {
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     let loginId = localStorage.getItem("idStudent"); // obtengo el id del usuario que ingreso a la herramienta //
     if (survey === "SurveyOne" || factor === "Methodical") {
       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
@@ -350,7 +359,7 @@ module.exports = ({
     }
   }
 
-  function startConstructionGraphicOne(
+  async function startConstructionGraphicOne(
     loginId,
     containerMain,
     containerSection,
@@ -360,205 +369,102 @@ module.exports = ({
     generateGraphOne,
     generateBtnSectionTwo
   ) {
+    const response = await axios.post("/vera/result", { id: loginId });
+    const result = response.data;
+
     if (survey === "SurveyOne") {
-      var response = surveyResult;
       var improve, enrich, persist, levelResponse;
-      console.log(Object.keys(response.result).length);
-      console.log(response);
-      for (var i = 0; i < Object.keys(response.result).length; i++) {
-        if (response.result[i].studentId === loginId) {
-          for (
-            var j = 0;
-            j < Object.keys(response.result[i].groupData).length;
-            j++
-          ) {
-            if (response.result[i].groupData[j].factorId === factor) {
-              if (response.result[i].groupData[j].levelId === "Improve") {
-                improve = response.result[i].groupData[j].cohortCount;
-              }
-              if (response.result[i].groupData[j].levelId === "Enrich") {
-                enrich = response.result[i].groupData[j].cohortCount;
-              }
-              if (response.result[i].groupData[j].levelId === "Persist") {
-                persist = response.result[i].groupData[j].cohortCount;
-              }
-            }
+      for (const groupData of result.groupData) {
+        if (groupData.factorId === factor) {
+          if (groupData.levelId === "Improve") {
+            improve = groupData.cohortCount;
           }
-          for (
-            var j = 0;
-            j < Object.keys(response.result[i].studentResponses).length;
-            j++
-          ) {
-            if (response.result[i].studentResponses[j].factorId === factor) {
-              levelResponse = response.result[i].studentResponses[j].levelId;
-              console.log(levelResponse);
-            }
+          if (groupData.levelId === "Enrich") {
+            enrich = groupData.cohortCount;
           }
-          generateGraphOne(
-            loginId,
-            levelResponse,
-            containerMain,
-            containerSection,
-            survey,
-            factor,
-            component,
-            improve,
-            enrich,
-            persist,
-            generateBtnSectionTwo,
-            containerSectionTwo
-          );
-          console.log("Improve: " + improve);
-          console.log("Enrich: " + enrich);
-          console.log("Persist: " + persist);
+          if (groupData.levelId === "Persist") {
+            persist = groupData.cohortCount;
+          }
         }
       }
 
-      //   var surveyhttp = new XMLHttpRequest();
-      //   surveyhttp.onreadystatechange = function() {
-      //     if (this.readyState == 4 && this.status == 200) {
-      //       var response = JSON.parse(surveyhttp.responseText);
-      //       var improve, enrich, persist, levelResponse;
-      //       console.log(Object.keys(response.result).length);
-      //       console.log(response);
-      //       for (var i = 0; i < Object.keys(response.result).length; i++) {
-      //         if (response.result[i].studentId === loginId) {
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].groupData).length;
-      //             j++
-      //           ) {
-      //             if (response.result[i].groupData[j].factorId === factor) {
-      //               if (response.result[i].groupData[j].levelId === "Improve") {
-      //                 improve = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Enrich") {
-      //                 enrich = response.result[i].groupData[j].cohortCount;
-      //               }
-      //               if (response.result[i].groupData[j].levelId === "Persist") {
-      //                 persist = response.result[i].groupData[j].cohortCount;
-      //               }
-      //             }
-      //           }
-      //           for (
-      //             var j = 0;
-      //             j < Object.keys(response.result[i].studentResponses).length;
-      //             j++
-      //           ) {
-      //             if (
-      //               response.result[i].studentResponses[j].factorId === factor
-      //             ) {
-      //               levelResponse =
-      //                 response.result[i].studentResponses[j].levelId;
-      //               console.log(levelResponse);
-      //             }
-      //           }
-      //           generateGraphOne(
-      //             loginId,
-      //             levelResponse,
-      //             containerMain,
-      //             containerSection,
-      //             survey,
-      //             factor,
-      //             component,
-      //             improve,
-      //             enrich,
-      //             persist,
-      //             generateBtnSectionTwo
-      //           );
-      //           console.log("Improve: " + improve);
-      //           console.log("Enrich: " + enrich);
-      //           console.log("Persist: " + persist);
-      //         }
-      //       }
-      //     }
-      //   };
-      //   surveyhttp.open("GET", "data/surveyResult.json", true);
-      //surveyhttp.send();
+      for (const studentResponse of result.studentResponses) {
+        if (studentResponse.factorId === factor) {
+          levelResponse = studentResponse.levelId;
+        }
+      }
+      generateGraphOne(
+        loginId,
+        levelResponse,
+        containerMain,
+        containerSection,
+        survey,
+        factor,
+        component,
+        improve,
+        enrich,
+        persist,
+        generateBtnSectionTwo,
+        containerSectionTwo
+      );
     } else {
-      var response = surveyResult;
       var veryLow, low, medium, high, veryHigh, levelResponse;
       if (factor === "Methodical") {
-        for (var i = 0; i < Object.keys(response.result).length; i++) {
-          if (response.result[i].studentId === loginId) {
-            for (
-              var j = 0;
-              j < Object.keys(response.result[i].groupData).length;
-              j++
-            ) {
-              if (response.result[i].groupData[j].factorId === factor) {
-                if (response.result[i].groupData[j].levelId === "VeryLow") {
-                  veryLow = response.result[i].groupData[j].cohortCount;
-                }
-                if (response.result[i].groupData[j].levelId === "Low") {
-                  low = response.result[i].groupData[j].cohortCount;
-                }
-                if (response.result[i].groupData[j].levelId === "Medium") {
-                  medium = response.result[i].groupData[j].cohortCount;
-                }
-                if (response.result[i].groupData[j].levelId === "High") {
-                  high = response.result[i].groupData[j].cohortCount;
-                }
-                if (response.result[i].groupData[j].levelId === "VeryHigh") {
-                  veryHigh = response.result[i].groupData[j].cohortCount;
-                }
-              }
+        for (const groupData of result.groupData) {
+          if (groupData.factorId === factor) {
+            if (groupData.levelId === "VeryLow") {
+              veryLow = groupData.cohortCount;
             }
-            for (
-              var j = 0;
-              j < Object.keys(response.result[i].studentResponses).length;
-              j++
-            ) {
-              if (response.result[i].studentResponses[j].factorId === factor) {
-                levelResponse = response.result[i].studentResponses[j].levelId;
-                //console.log(levelResponse);
-              }
+            if (groupData.levelId === "Low") {
+              low = groupData.cohortCount;
+            }
+            if (groupData.levelId === "Medium") {
+              medium = groupData.cohortCount;
+            }
+            if (groupData.levelId === "High") {
+              high = groupData.cohortCount;
+            }
+            if (groupData.levelId === "VeryHigh") {
+              veryHigh = groupData.cohortCount;
             }
           }
         }
+
+        for (const studentResponse of result.studentResponses) {
+          if (studentResponse.factorId === factor) {
+            levelResponse = studentResponse.levelId;
+          }
+        }
       } else {
-        for (var i = 0; i < Object.keys(response.result).length; i++) {
-          if (response.result[i].studentId === loginId) {
-            for (
-              var j = 0;
-              j < Object.keys(response.result[i].groupData).length;
-              j++
-            ) {
-              if (
-                response.result[i].groupData[j].factorId === factor &&
-                response.result[i].groupData[j].componentId === component
-              ) {
-                if (response.result[i].groupData[j].levelId === "VeryLow") {
-                  veryLow = response.result[i].groupData[j].cohortCount;
-                }
-                if (response.result[i].groupData[j].levelId === "Low") {
-                  low = response.result[i].groupData[j].cohortCount;
-                }
-                if (response.result[i].groupData[j].levelId === "Medium") {
-                  medium = response.result[i].groupData[j].cohortCount;
-                }
-                if (response.result[i].groupData[j].levelId === "High") {
-                  high = response.result[i].groupData[j].cohortCount;
-                }
-                if (response.result[i].groupData[j].levelId === "VeryHigh") {
-                  veryHigh = response.result[i].groupData[j].cohortCount;
-                }
-              }
+        for (const groupData of result.groupData) {
+          if (
+            groupData.factorId === factor &&
+            groupData.componentId === component
+          ) {
+            if (groupData.levelId === "VeryLow") {
+              veryLow = groupData.cohortCount;
             }
-            for (
-              var j = 0;
-              j < Object.keys(response.result[i].studentResponses).length;
-              j++
-            ) {
-              if (
-                response.result[i].studentResponses[j].factorId === factor &&
-                response.result[i].studentResponses[j].componentId === component
-              ) {
-                levelResponse = response.result[i].studentResponses[j].levelId;
-                //console.log(response.result[i].studentResponses[j]);
-                // console.log(levelResponse);
-              }
+            if (groupData.levelId === "Low") {
+              low = groupData.cohortCount;
             }
+            if (groupData.levelId === "Medium") {
+              medium = groupData.cohortCount;
+            }
+            if (groupData.levelId === "High") {
+              high = groupData.cohortCount;
+            }
+            if (groupData.levelId === "VeryHigh") {
+              veryHigh = groupData.cohortCount;
+            }
+          }
+        }
+
+        for (const studentResponse of result.studentResponses) {
+          if (
+            studentResponse.factorId === factor &&
+            studentResponse.componentId === component
+          ) {
+            levelResponse = studentResponse.levelId;
           }
         }
       }
@@ -578,7 +484,6 @@ module.exports = ({
         generateBtnSectionTwo,
         containerSectionTwo
       );
-
     }
   }
 
@@ -989,7 +894,7 @@ module.exports = ({
         posX = posX + 16;
       }
     }
-    console.log(levelResponse);
+
     switch (levelResponse) {
       case "Muy Bajo":
         markPosition(groupVeryLow, maxHeight, maxWidth);
@@ -1017,7 +922,7 @@ module.exports = ({
     );
   }
 
-  function startConstructionGraphicTwo(
+  async function startConstructionGraphicTwo(
     loginId,
     containerSection,
     containerMain,
@@ -1026,27 +931,21 @@ module.exports = ({
     component,
     generateGraphTwo
   ) {
+    const response = await axios.post("/vera/result", { id: loginId });
+    const result = response.data;
+
     if (survey === "SurveyOne") {
-      var response = surveyResult;
       var improve, enrich, persist;
-      for (var i = 0; i < Object.keys(response.result).length; i++) {
-        if (response.result[i].studentId === loginId) {
-          for (
-            var j = 0;
-            j < Object.keys(response.result[i].groupData).length;
-            j++
-          ) {
-            if (response.result[i].groupData[j].factorId === factor) {
-              if (response.result[i].groupData[j].levelId === "Improve") {
-                improve = response.result[i].groupData[j].historic;
-              }
-              if (response.result[i].groupData[j].levelId === "Enrich") {
-                enrich = response.result[i].groupData[j].historic;
-              }
-              if (response.result[i].groupData[j].levelId === "Persist") {
-                persist = response.result[i].groupData[j].historic;
-              }
-            }
+      for (const groupData of result.groupData) {
+        if (groupData.factorId === factor) {
+          if (groupData.levelId === "Improve") {
+            improve = groupData.historic;
+          }
+          if (groupData.levelId === "Enrich") {
+            enrich = groupData.historic;
+          }
+          if (groupData.levelId === "Persist") {
+            persist = groupData.historic;
           }
         }
       }
@@ -1062,66 +961,48 @@ module.exports = ({
         persist,
         generateBtnSectionThree
       );
-
     } else {
-      var response = surveyResult;
       var veryLow, low, medium, high, veryHigh;
       if (factor === "Methodical") {
-        for (var i = 0; i < Object.keys(response.result).length; i++) {
-          if (response.result[i].studentId === loginId) {
-            for (
-              var j = 0;
-              j < Object.keys(response.result[i].groupData).length;
-              j++
-            ) {
-              if (response.result[i].groupData[j].factorId === factor) {
-                if (response.result[i].groupData[j].levelId === "VeryLow") {
-                  veryLow = response.result[i].groupData[j].historic;
-                }
-                if (response.result[i].groupData[j].levelId === "Low") {
-                  low = response.result[i].groupData[j].historic;
-                }
-                if (response.result[i].groupData[j].levelId === "Medium") {
-                  medium = response.result[i].groupData[j].historic;
-                }
-                if (response.result[i].groupData[j].levelId === "High") {
-                  high = response.result[i].groupData[j].historic;
-                }
-                if (response.result[i].groupData[j].levelId === "VeryHigh") {
-                  veryHigh = response.result[i].groupData[j].historic;
-                }
-              }
+        for (const groupData of result.groupData) {
+          if (groupData.factorId === factor) {
+            if (groupData.levelId === "VeryLow") {
+              veryLow = groupData.historic;
+            }
+            if (groupData.levelId === "Low") {
+              low = groupData.historic;
+            }
+            if (groupData.levelId === "Medium") {
+              medium = groupData.historic;
+            }
+            if (groupData.levelId === "High") {
+              high = groupData.historic;
+            }
+            if (groupData.levelId === "VeryHigh") {
+              veryHigh = groupData.historic;
             }
           }
         }
       } else {
-        for (var i = 0; i < Object.keys(response.result).length; i++) {
-          if (response.result[i].studentId === loginId) {
-            for (
-              var j = 0;
-              j < Object.keys(response.result[i].groupData).length;
-              j++
-            ) {
-              if (
-                response.result[i].groupData[j].factorId === factor &&
-                response.result[i].groupData[j].componentId === component
-              ) {
-                if (response.result[i].groupData[j].levelId === "VeryLow") {
-                  veryLow = response.result[i].groupData[j].historic;
-                }
-                if (response.result[i].groupData[j].levelId === "Low") {
-                  low = response.result[i].groupData[j].historic;
-                }
-                if (response.result[i].groupData[j].levelId === "Medium") {
-                  medium = response.result[i].groupData[j].historic;
-                }
-                if (response.result[i].groupData[j].levelId === "High") {
-                  high = response.result[i].groupData[j].historic;
-                }
-                if (response.result[i].groupData[j].levelId === "VeryHigh") {
-                  veryHigh = response.result[i].groupData[j].historic;
-                }
-              }
+        for (const groupData of result.groupData) {
+          if (
+            groupData.factorId === factor &&
+            groupData.componentId === component
+          ) {
+            if (groupData.levelId === "VeryLow") {
+              veryLow = groupData.historic;
+            }
+            if (groupData.levelId === "Low") {
+              low = groupData.historic;
+            }
+            if (groupData.levelId === "Medium") {
+              medium = groupData.historic;
+            }
+            if (groupData.levelId === "High") {
+              high = groupData.historic;
+            }
+            if (groupData.levelId === "VeryHigh") {
+              veryHigh = groupData.historic;
             }
           }
         }
@@ -1140,7 +1021,6 @@ module.exports = ({
         veryHigh,
         generateBtnSectionThree
       );
-
     }
   }
 
@@ -1195,9 +1075,6 @@ module.exports = ({
     ) {
       improve[2]++;
     }
-    console.log(
-      Math.round(improve[0]) + Math.round(improve[1]) + Math.round(improve[2])
-    );
 
     groupImprove
       .append("text")
@@ -1245,7 +1122,7 @@ module.exports = ({
     ) {
       enrich[2]++;
     }
-    //console.log(Math.round(enrich[0])+ Math.round(enrich[1])+ Math.round(enrich[2]) )
+
     groupEnrich
       .append("text")
       .text(
@@ -1294,7 +1171,6 @@ module.exports = ({
     ) {
       persist[2]++;
     }
-    //console.log(Math.round(persist[0])+ Math.round(persist[1])+ Math.round(persist[2])  );
 
     groupPersist
       .append("text")

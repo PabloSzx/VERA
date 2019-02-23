@@ -1,13 +1,14 @@
 "use strict";
-const surveyText = require("../data/surveyText.json");
+const axios = require("axios");
 
 module.exports = ({
   startConstructionGraphicOne,
   startConstructionGraphicTwo,
 }) => {
-  function createButtonFactors(survey, view) {
+  async function createButtonFactors(survey, view) {
     // Genera btn correspondientes a las dimensiones de cada encuesta //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
 
     var countFactors = Object.keys(response.surveys[survey].factors).length; // Entrega la cantidad de factores que posee la encuesta //
     var nameSurvey = response.surveys[survey].id; // Nombre de la encuesta para la cual debo generar los btns (Selfconcept or LearningStrategy)//
@@ -41,9 +42,10 @@ module.exports = ({
     }
   }
 
-  function createButtonFactorsComponent(survey, factor, container) {
+  async function createButtonFactorsComponent(survey, factor, container) {
     // Genera btn correspondientes a las dimensiones de cada encuesta //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
 
     for (var i = 0; i < Object.keys(response.surveys).length; i++) {
       if (response.surveys[i].id === survey) {
@@ -96,7 +98,7 @@ module.exports = ({
     }
   }
 
-  function generateBtnSectionOne(
+  async function generateBtnSectionOne(
     container,
     survey,
     factor,
@@ -104,7 +106,8 @@ module.exports = ({
     containerSectionOne
   ) {
     // Genera boton para visualizar el primer grafico simulando acordeon //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     var newButton = document.createElement("button");
     if (survey === "SurveyOne") {
       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
@@ -228,7 +231,7 @@ module.exports = ({
     }
   }
 
-  function generateBtnSectionTwo(
+  async function generateBtnSectionTwo(
     containerMain,
     survey,
     factor,
@@ -236,7 +239,8 @@ module.exports = ({
     containerSectionTwo
   ) {
     // Genera el btn que permitira ver o esconcer el contenido del grafico 2 //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       var newButton = document.createElement("button");
       newButton.innerHTML = "Promociones anteriores";
@@ -315,7 +319,7 @@ module.exports = ({
     }
   }
 
-  function generateBtnSectionThree(
+  async function generateBtnSectionThree(
     containerMain,
     survey,
     factor,
@@ -323,7 +327,8 @@ module.exports = ({
     containerSectionThree
   ) {
     // Genera boton para visualizar el primer grafico simulando acordeon //
-    var response = surveyText;
+    const surveys = await axios.get("/vera/surveys");
+    const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       var newButton = document.createElement("button");
       newButton.innerHTML = "¿ Que puedo hacer para mejorar ?";
