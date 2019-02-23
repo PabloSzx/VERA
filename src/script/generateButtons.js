@@ -7,7 +7,7 @@ module.exports = ({
 }) => {
   async function createButtonFactors(survey, view) {
     // Genera btn correspondientes a las dimensiones de cada encuesta //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
 
     var countFactors = Object.keys(response.surveys[survey].factors).length; // Entrega la cantidad de factores que posee la encuesta //
@@ -44,7 +44,7 @@ module.exports = ({
 
   async function createButtonFactorsComponent(survey, factor, container) {
     // Genera btn correspondientes a las dimensiones de cada encuesta //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
 
     for (var i = 0; i < Object.keys(response.surveys).length; i++) {
@@ -106,7 +106,7 @@ module.exports = ({
     containerSectionOne
   ) {
     // Genera boton para visualizar el primer grafico simulando acordeon //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     var newButton = document.createElement("button");
     if (survey === "SurveyOne") {
@@ -239,7 +239,7 @@ module.exports = ({
     containerSectionTwo
   ) {
     // Genera el btn que permitira ver o esconcer el contenido del grafico 2 //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       var newButton = document.createElement("button");
@@ -327,7 +327,7 @@ module.exports = ({
     containerSectionThree
   ) {
     // Genera boton para visualizar el primer grafico simulando acordeon //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       var newButton = document.createElement("button");

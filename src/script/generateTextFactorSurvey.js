@@ -11,7 +11,7 @@ module.exports = ({ containerSectionOne, createButtonFactorsComponent }) => {
     generateBtnSectionOne
   ) {
     // Recibo factor (pos de la dimension en el JSON) y view(contenedor donde agrego el elemento) y la fun generateBtnSectionOne //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
 
     switch (
@@ -89,7 +89,7 @@ module.exports = ({ containerSectionOne, createButtonFactorsComponent }) => {
     generateBtnSectionOne
   ) {
     /* Intro de cada dimensión de procesamiento de la info */
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     var element = document.createElement("p");
     element.setAttribute("class", "textIntroductionComponentProsecution");

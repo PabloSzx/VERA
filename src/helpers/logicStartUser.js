@@ -16,7 +16,7 @@ function goToStudent(id) {
 async function startSession() {
   try {
     const id = document.querySelector("#txtId").value;
-    const request = await axios.get("/vera/validateUser", { id });
+    const request = await axios.post("/vera/validateUser", { id });
 
     const access = _.get(request, "data.access", false);
     console.log("access", access);

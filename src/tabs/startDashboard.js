@@ -13,7 +13,7 @@ module.exports = ({ getIntroductionText, reference }) => {
     newContainer.setAttribute("class", "containerBtnMain");
     document.getElementById("dashboard").appendChild(newContainer);
 
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     var newButton = document.createElement("button"); //genero btn del menu de inicio //
     newButton.setAttribute("id", "buttonHome");

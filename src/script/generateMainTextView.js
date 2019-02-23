@@ -4,9 +4,9 @@ const axios = require("axios");
 module.exports = ({ createButtonFactors }) => {
   async function getIntroductionText(view) {
     // genero contenido de introduccíon para cada una de las vistas //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
-    const introduction = await axios.get("/vera/introduction");
+    const introduction = await axios.post("/vera/introduction");
 
     switch (view) {
       case "home":
@@ -42,7 +42,7 @@ module.exports = ({ createButtonFactors }) => {
 
     referenceContainer.innerHTML = "<br/><left>REFERENCIAS <br/><br/>";
 
-    const references = await axios.get("/vera/references");
+    const references = await axios.post("/vera/references");
     const response = references.data;
     var countReferences = Object.keys(response.references).length; // Obtengo la cantidad de referencias en el JSON //
     for (var i = 0; i < countReferences; i++) {
@@ -62,7 +62,7 @@ module.exports = ({ createButtonFactors }) => {
     component
   ) {
     //Corresponde a la introdución a el primer grafico //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     var cont = document.createElement("p");
     var id = "introductionSectionOne" + container;
@@ -119,7 +119,7 @@ module.exports = ({ createButtonFactors }) => {
     component
   ) {
     //Corresponde a la introdución a el primer grafico //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     var cont = document.createElement("p");
     var id = "introductionSectionOne" + container;

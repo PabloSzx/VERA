@@ -18,7 +18,7 @@ module.exports = ({
     startConstructionGraphicOne
   ) {
     let loginId = localStorage.getItem("idStudent"); // recupero id del estudiante, para poder cargar informacion relacionada //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
@@ -135,7 +135,7 @@ module.exports = ({
     component,
     startConstructionGraphicTwo
   ) {
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     let loginId = localStorage.getItem("idStudent"); // obtengo el id del usuario que ingreso a la herramienta //
     if (survey === "SurveyOne" || factor === "Methodical") {
@@ -247,7 +247,7 @@ module.exports = ({
     component,
     startConstructionAdvice
   ) {
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       for (var i = 0; i < Object.keys(response.surveys).length; i++) {

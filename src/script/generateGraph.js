@@ -14,7 +14,7 @@ module.exports = ({
     component,
     startConstructionAdvice
   ) {
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       for (var i = 0; i < Object.keys(response.surveys).length; i++) {
@@ -108,7 +108,7 @@ module.exports = ({
     containerSectionThree
   ) {
     // Genera boton para visualizar el primer grafico simulando acordeon //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     if (survey === "SurveyOne" || factor === "Methodical") {
       var newButton = document.createElement("button");
@@ -196,7 +196,7 @@ module.exports = ({
     component
   ) {
     //Corresponde a la introdución a el primer grafico //
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     var cont = document.createElement("p");
     var id = "introductionSectionOne" + container;
@@ -254,7 +254,7 @@ module.exports = ({
     component,
     startConstructionGraphicTwo
   ) {
-    const surveys = await axios.get("/vera/surveys");
+    const surveys = await axios.post("/vera/surveys");
     const response = surveys.data;
     let loginId = localStorage.getItem("idStudent"); // obtengo el id del usuario que ingreso a la herramienta //
     if (survey === "SurveyOne" || factor === "Methodical") {

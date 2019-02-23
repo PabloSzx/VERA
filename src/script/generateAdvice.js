@@ -1,6 +1,5 @@
 "use strict";
 const axios = require("axios");
-const recommendation = require("../data/recommendation.json");
 
 async function startConstructionAdvice(
   containerSection,
@@ -9,7 +8,7 @@ async function startConstructionAdvice(
   component,
   generateAdvice
 ) {
-  const surveys = await axios.get("/vera/surveys");
+  const surveys = await axios.post("/vera/surveys");
   const response = surveys.data;
   if (survey === "SurveyOne" || factor === "Methodical") {
     for (var i = 0; i < Object.keys(response.surveys).length; i++) {
@@ -163,60 +162,18 @@ async function generateAdviceSurveyTwo(
   }
 }
 
-function showAdvice(container, factor, survey, component, level) {
+async function showAdvice(container, factor, survey, component, level) {
   //genero texto de la recomendacion //
-  var getRecommendation;
   // factor de estudio metodico y las de autoconcepto cuentan de la misma estructura //
-  var response = recommendation;
-  if (survey === "SurveyOne" || factor === "Methodical") {
-    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      if ((response.surveys[i].id = survey)) {
-        for (
-          var j = 0;
-          j < Object.keys(response.surveys[i].factors).length;
-          j++
-        ) {
-          if (response.surveys[i].factors[j].id === factor) {
-            if (level === "high") {
-              var getRecommendation = response.surveys[i].factors[j].high;
-            } else {
-              var getRecommendation = response.surveys[i].factors[j].low;
-            }
-          }
-        }
-      }
-    }
-  } else {
-    for (var i = 0; i < Object.keys(response.surveys).length; i++) {
-      if ((response.surveys[i].id = survey)) {
-        for (
-          var j = 0;
-          j < Object.keys(response.surveys[i].factors).length;
-          j++
-        ) {
-          if (response.surveys[i].factors[j].id === factor) {
-            for (
-              var k = 0;
-              k < Object.keys(response.surveys[i].factors[j].components).length;
-              k++
-            ) {
-              if (
-                response.surveys[i].factors[j].components[k].id === component
-              ) {
-                if (level === "high") {
-                  var getRecommendation =
-                    response.surveys[i].factors[j].components[k].high;
-                } else {
-                  var getRecommendation =
-                    response.surveys[i].factors[j].components[k].low;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  var response = await axios.post("/vera/recommendation", {
+    survey,
+    factor,
+    component,
+    level,
+  });
+
+  const getRecommendation = response.data;
+
   var element = document.createElement("p");
   element.innerHTML = getRecommendation;
   document.getElementById(container).appendChild(element);
