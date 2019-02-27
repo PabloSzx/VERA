@@ -4,10 +4,31 @@
 //   reference,
 // } = require("../script/generateMainTextView");
 const axios = require("axios");
+const _ = require("lodash");
+const queryString = require("query-string");
 
 module.exports = ({ getIntroductionText, reference }) => {
   //window.onload = startDashboard(mainContainer); //funcion que inica el esquema base de la pagina web, entrego como parametro la función que permite visualizar el contenido de INICIO//
   async function startDashboard(mainContainer) {
+    const args = queryString.parse(location.search);
+
+    if (args.id) {
+      const request = await axios.post("/vera/validateUser", { id: args.id });
+
+      const access = _.get(request, "data.access", false);
+
+      if (access == true) {
+        localStorage.setItem("idStudent", args.id);
+      } else {
+        window.alert("Acceso denegado, no existe el usuario " + args.id);
+      }
+    } else {
+      const idStudent = localStorage.getItem("idStudent");
+      if (!idStudent) {
+        window.alert("Favor de ingresar un usuario");
+      }
+    }
+
     var newContainer = document.createElement("div"); //contenedor de los btn principales del dashboard //
     newContainer.setAttribute("id", "btnContainer");
     newContainer.setAttribute("class", "containerBtnMain");
@@ -31,6 +52,10 @@ module.exports = ({ getIntroductionText, reference }) => {
       newButton.setAttribute("onclick", onclick);
       newButton.innerHTML = response.surveys[i].label;
       document.getElementById("btnContainer").appendChild(newButton);
+    }
+
+    if (args.showac === undefined) {
+      document.getElementById("buttonSurveyOne").classList.add("hide");
     }
     mainContainer(showHome); //corre la función mainContainer y paso como parametro la función showHome
   }

@@ -1,610 +1,612 @@
 * {
-    margin: 0;
-    padding: 0;
-   -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.hide {
+  display: none;
 }
 
 body {
-    font-family: Helvetica, Arial, sans-serif;
-    background: #d9d9d9;
-    width: 1500px;
-    /*font-family: "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; */
+  font-family: Helvetica, Arial, sans-serif;
+  background: #d9d9d9;
+  width: 1500px;
+  /*font-family: "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; */
 }
 
 #top {
-    background: #bdbdbd;
-    margin: 0 auto;
-    height: 60px;
-    border-bottom: 5px solid#a1d99b;
+  background: #bdbdbd;
+  margin: 0 auto;
+  height: 60px;
+  border-bottom: 5px solid#a1d99b;
 }
 
 .logo {
-    /* Imagenes uach, lala, erasmus */
-    margin: 0 auto;
-    text-align: center;
-    width: 1050px;
-    padding-top: 10px;
-    background: #bdbdbd;
+  /* Imagenes uach, lala, erasmus */
+  margin: 0 auto;
+  text-align: center;
+  width: 1050px;
+  padding-top: 10px;
+  background: #bdbdbd;
 }
 
 #title {
-    float: left;
-    font: small-caps 100%/130% serif;
-    margin-left: 40px;
-    height: 40px;
-    margin-top: 0px;
-    color:#164194;
-    font-size: 30px;
+  float: left;
+  font: small-caps 100%/130% serif;
+  margin-left: 40px;
+  height: 40px;
+  margin-top: 0px;
+  color: #164194;
+  font-size: 30px;
 }
 
 #lala {
-    margin-right: 25px;
-    margin-left: 25px;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 #erasmus {
-    margin-right: 40px;
+  margin-right: 40px;
 }
 
 #dashboard {
-    width: 1050px;
-    margin: 0 auto; /* Centro el dashboard*/
-    border-top: none;
-    overflow: hidden;
-    margin-top: 10px;
+  width: 1050px;
+  margin: 0 auto; /* Centro el dashboard*/
+  border-top: none;
+  overflow: hidden;
+  margin-top: 10px;
 }
 
-        /*              Contenedor Principal                    */
+/*              Contenedor Principal                    */
 .containerViewMain {
-    /* Contenedor principal del dashboard (contenido home y survey) */
-    background: #fff;
-    border-top: transparent;
-    padding: 15px 25px 15px 25px;
-    overflow: hidden;
-    line-height: 1.3;
+  /* Contenedor principal del dashboard (contenido home y survey) */
+  background: #fff;
+  border-top: transparent;
+  padding: 15px 25px 15px 25px;
+  overflow: hidden;
+  line-height: 1.3;
 }
 
 /*                                  BTNS PRINCIPALES                            */
 
 .containerBtnMain {
-    /* Contenedor de los botones iniciales (menu principal del dashboard)*/
-    max-height: 40px;
-    width: 1050px;
+  /* Contenedor de los botones iniciales (menu principal del dashboard)*/
+  max-height: 40px;
+  width: 1050px;
 }
 
-.buttonMain { 
-    /* Diseño de los botones Principales Inicio, Autoconcepto y Estrategia de aprendizaje */
-    font-size: 20px;
-    letter-spacing: 1.5px;
-    border: 1px solid #ccc;
-    border-top: transparent;
-    background: #fff;
-    cursor: pointer;
-    box-shadow: inset 0 0 0 0 #A9F5BC;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
-    width: 350px;
-    height: 40px;
+.buttonMain {
+  /* Diseño de los botones Principales Inicio, Autoconcepto y Estrategia de aprendizaje */
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  border: 1px solid #ccc;
+  border-top: transparent;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 0 #a9f5bc;
+  -webkit-transition: ease-out 0.4s;
+  -moz-transition: ease-out 0.4s;
+  transition: ease-out 0.4s;
+  width: 350px;
+  height: 40px;
 }
 
 .buttonMain:hover {
-    /*Al posar el cursor sobre el boton, este aplica un efecto*/
-    opacity: 0.6;
-    text-decoration: none;  
-    box-shadow: inset 0 0 0 50px #A9F5BC;
+  /*Al posar el cursor sobre el boton, este aplica un efecto*/
+  opacity: 0.6;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 50px #a9f5bc;
 }
 
 .buttonMain#buttonHome {
-    border-left: transparent;
+  border-left: transparent;
 }
 .buttonMain#buttonsurveyTwo {
-    border-right: transparent;
+  border-right: transparent;
 }
 
 /*                                  INTRO PRINCIPALES                           */
 .textIntroduction#introductionhome {
-    /* Caracteristicas del texto de introduccion vista 1*/
-      font-size: 16px;
+  /* Caracteristicas del texto de introduccion vista 1*/
+  font-size: 16px;
 }
 
 .textIntroduction#introductionsurveyOne {
-    /* Caracteristicas del texto de introduccion vista 2 */
-    font-size: 14px;
-    padding-bottom: 15px;
+  /* Caracteristicas del texto de introduccion vista 2 */
+  font-size: 14px;
+  padding-bottom: 15px;
 }
 
 .textIntroduction#introductionsurveyTwo {
-    /* Caracteristicas del texto de introduccion vista 3 */
-    font-size: 14px;
-    padding-bottom: 15px;
+  /* Caracteristicas del texto de introduccion vista 3 */
+  font-size: 14px;
+  padding-bottom: 15px;
 }
 
 /*                    BTNS SELFCONCEPT                                  */
 
-.containerButtonSelfconcept{
-    /* Caracteristicas del contenedor de los 5 btns autoconcepto*/
-    width: 1050px;
+.containerButtonSelfconcept {
+  /* Caracteristicas del contenedor de los 5 btns autoconcepto*/
+  width: 1050px;
 }
 
-.buttonSurveyOne { 
-    /* caracteristica de los 5 btns autoconcepto*/
-    font-size: 18px;
-    letter-spacing: 1px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    width:200px;
-    height:30px;
-    cursor: pointer;
-    box-shadow: inset 0 0 0 0 #A9F5D0;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
-} 
+.buttonSurveyOne {
+  /* caracteristica de los 5 btns autoconcepto*/
+  font-size: 18px;
+  letter-spacing: 1px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  width: 200px;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 0 #a9f5d0;
+  -webkit-transition: ease-out 0.4s;
+  -moz-transition: ease-out 0.4s;
+  transition: ease-out 0.4s;
+}
 
 .buttonSurveyOne:hover {
-    opacity: 0.6;
-    text-decoration: none;  
-    box-shadow: inset 0 0 0 50px #A9F5D0;
+  opacity: 0.6;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 50px #a9f5d0;
 }
 
 /*                              CONTAINER AUTOCONCEPTO                          */
 
 .containerDimensionSurveyOne {
-    /* Contenedor de los elementos de las dimenciones del Autoconcepto */
-    padding: 10px 20px 10px 20px;
-    display: none;
-    border-top: transparent;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;   
-}   
+  /* Contenedor de los elementos de las dimenciones del Autoconcepto */
+  padding: 10px 20px 10px 20px;
+  display: none;
+  border-top: transparent;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
 
 /*          TEXTO DE INTRODUCCIÓN DE CADA ENCUESTA          */
 
 .textIntroductionSelfconcept {
-    /* Texto introducción de los factores del autoconcepto*/
-   font-size: 14px;
+  /* Texto introducción de los factores del autoconcepto*/
+  font-size: 14px;
 }
 
 .textIntroductionLearningStrategy {
-    /* Texto de los fatores de estrategias de aprendzaje*/
-    font-size: 14px;
+  /* Texto de los fatores de estrategias de aprendzaje*/
+  font-size: 14px;
 }
 
 .textIntroductionComponentProsecution {
-    /*Textos de los componentes del factor procesamiento de la info*/
-    font-size: 14px;
+  /*Textos de los componentes del factor procesamiento de la info*/
+  font-size: 14px;
 }
 
 /*              CONTENEDOR BTN ESTRATEGIAS DE APRENDIZAJE           */
 
-.containerButtonSurveyTwo{
-    /*contenedor de los Btn estrategia de aprendizaje*/
-    width: 100%;
-    height: 30px;
-    background: #fff;
+.containerButtonSurveyTwo {
+  /*contenedor de los Btn estrategia de aprendizaje*/
+  width: 100%;
+  height: 30px;
+  background: #fff;
 }
 
 .buttonSurveyTwo {
-    /* caracteristica de los 2 btns de las estrategias de aprendizaje*/
-    font-size: 18px;
-    letter-spacing: 1px;
-    background: #fff;
-    border: 1px solid#ccc;
-    cursor: pointer;
-    box-shadow: inset 0 0 0 0 #A9F5D0;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
-    width:500px;
-    height:30px; 
+  /* caracteristica de los 2 btns de las estrategias de aprendizaje*/
+  font-size: 18px;
+  letter-spacing: 1px;
+  background: #fff;
+  border: 1px solid#ccc;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 0 #a9f5d0;
+  -webkit-transition: ease-out 0.4s;
+  -moz-transition: ease-out 0.4s;
+  transition: ease-out 0.4s;
+  width: 500px;
+  height: 30px;
 }
 
 .buttonSurveyTwo:hover {
-    opacity: 0.6;
-    text-decoration: none;  
-    box-shadow: inset 0 0 0 50px #A9F5D0;
+  opacity: 0.6;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 50px #a9f5d0;
 }
 
 /*                              CONTAINER ELEMENTOS ESTRATEGIAS DE APRENDIZAJE                          */
 .containerDimensionSurveyTwo {
-    /* Contenedor de los elementos de las dimenciones de las Estrategias de aprendizaje */
-    padding: 10px 20px 10px 20px;
-    display: none;
-    border-top: transparent;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-   
+  /* Contenedor de los elementos de las dimenciones de las Estrategias de aprendizaje */
+  padding: 10px 20px 10px 20px;
+  display: none;
+  border-top: transparent;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
 /*                         BTN PROCESAMIENTO DE LA INFORMACIÖN             */
 .containerButtonSurveyTwoComponent {
-    max-width: 100%;
-    max-height:25px;
-    margin-top: 15px;
-    position: relative;
+  max-width: 100%;
+  max-height: 25px;
+  margin-top: 15px;
+  position: relative;
 }
 
 .buttonSurveyTwoComponent {
-    /* Btns correspondiente a la parte de procesamiento de la información*/
-    font-size: 18px;
-    letter-spacing: 1px;
-    background: transparent;
-    border: 1px solid#ccc;
-    cursor: pointer;
-    width: 319.36px;
-    box-shadow: inset 0 0 0 0 #A9F5D0;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
+  /* Btns correspondiente a la parte de procesamiento de la información*/
+  font-size: 18px;
+  letter-spacing: 1px;
+  background: transparent;
+  border: 1px solid#ccc;
+  cursor: pointer;
+  width: 319.36px;
+  box-shadow: inset 0 0 0 0 #a9f5d0;
+  -webkit-transition: ease-out 0.4s;
+  -moz-transition: ease-out 0.4s;
+  transition: ease-out 0.4s;
 }
-#buttonSuperficial{
-    position: absolute;
+#buttonSuperficial {
+  position: absolute;
 }
 
 .buttonSurveyTwoComponent:hover {
-    opacity: 0.6;
-    text-decoration: none;  
-    box-shadow: inset 0 0 0 50px #A9F5D0;
+  opacity: 0.6;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 50px #a9f5d0;
 }
 
 .containerDimensionSurveyTwoComponent {
-    padding: 10px 20px 10px 20px;
-    position: relative;
-    display: none;
-    border-top: transparent;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;  
+  padding: 10px 20px 10px 20px;
+  position: relative;
+  display: none;
+  border-top: transparent;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
 /*                                  GRAFICO UNO                                 */
 
 .graphOne {
-    /*Contiene caracteristicas del gráfico One*/
-    border-bottom: none;
-    border-top: none;
-    margin-top: 20px;
+  /*Contiene caracteristicas del gráfico One*/
+  border-bottom: none;
+  border-top: none;
+  margin-top: 20px;
 }
 
-#lowLevel { /*  diseño contenedores grafico uno   SurveyOne  */
-    background: #eaeff1;
-    border-radius: 20px;   
+#lowLevel {
+  /*  diseño contenedores grafico uno   SurveyOne  */
+  background: #eaeff1;
+  border-radius: 20px;
 }
-#mediumLevel{
-    background: #eaeff1;
-    border-radius: 20px;   
+#mediumLevel {
+  background: #eaeff1;
+  border-radius: 20px;
 }
-#highLevel{
-    background: #eaeff1;
-    border-radius: 20px;    
+#highLevel {
+  background: #eaeff1;
+  border-radius: 20px;
 }
 
-#veryLow{ /*   SurveyTwo    */
-    background: #eaeff1;
-    border-radius: 20px;   
+#veryLow {
+  /*   SurveyTwo    */
+  background: #eaeff1;
+  border-radius: 20px;
 }
 
 #low {
-    background: #eaeff1;
-    border-radius: 20px;   
+  background: #eaeff1;
+  border-radius: 20px;
 }
 
 #medium {
-    background: #eaeff1;
-    border-radius: 20px;   
+  background: #eaeff1;
+  border-radius: 20px;
 }
 
 #high {
-    background: #eaeff1;
-    border-radius: 20px;   
+  background: #eaeff1;
+  border-radius: 20px;
 }
 
 #veryHigh {
-    background: #eaeff1;
-    border-radius: 20px;   
+  background: #eaeff1;
+  border-radius: 20px;
 }
 
 /*                   GRAFICO DOS                */
 .graphTwo {
-    border-bottom: none;
-    border-top: none;
+  border-bottom: none;
+  border-top: none;
 }
 
 #graphicOne {
-    margin: 0 auto;
-    text-align: center;
+  margin: 0 auto;
+  text-align: center;
 }
 
 #graphicTwo {
-    margin: 0 auto;
-    text-align: center;
+  margin: 0 auto;
+  text-align: center;
 }
-#graphicOneLS{
-    margin: 0 auto;
-    text-align: center;
+#graphicOneLS {
+  margin: 0 auto;
+  text-align: center;
 }
 
 /*              SEPARACIÓN DE GRAFICOS DE LA ENCUESTA AUTOCONCEPTO Y ESTRATEGIAS DE APRENDIZAJE     */
 
 /* G1 */
 #mediumLevel {
-    margin-left: 59px;
-    margin-right: 59px;
+  margin-left: 59px;
+  margin-right: 59px;
 }
 
 #mediumLevelTwo {
-    margin-left: 59px;
-    margin-right: 59px;
+  margin-left: 59px;
+  margin-right: 59px;
 }
 
 /*Etiquetas asociadas a los niveles de las dimensiones de autoconcepto*/
 #levelIndicators {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 12px;
-    margin-top: 5px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
 #indicatorNormalLevel {
-    margin-left: 180px;
-    margin-right: 180px;
+  margin-left: 180px;
+  margin-right: 180px;
 }
 
 /* Estrategias de aprendizaje */
 /*  g1  */
 #veryLow {
-    margin-left: 8px;
-    margin-right: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 #low {
-    margin-left: 8px;
-    margin-right: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 #medium {
-    margin-left: 8px;
-    margin-right: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 #high {
-    margin-left: 8px;
-    margin-right: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 #veryHigh {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 /*  g2  */
 #veryLowTwo {
-    margin-left: 8px;
-    margin-right: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 #lowTwo {
-    margin-left: 8px;
-    margin-right: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 #mediumTwo {
-    margin-left: 8px;
-    margin-right: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 #highTwo {
-    margin-left: 8px;
-    margin-right: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 #veryHighTwo {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 /*                                  Ocultar y mostrar secciones                               */
 
 .close::after {
-    /* Se agrega como calse cuando escondo contenido de los btn secciones*/
-    content: "+";
-    color: black;
-    float: right;
-    margin-left: 20px;
-    font-size: 20px;
+  /* Se agrega como calse cuando escondo contenido de los btn secciones*/
+  content: "+";
+  color: black;
+  float: right;
+  margin-left: 20px;
+  font-size: 20px;
 }
 
-.open::after{
-    /* Se agrega cuando el bton se presiona para mostrar elemento*/
-    content: "-";
-    color: black;
-    float: right;
-    margin-left: 20px;
-    font-size: 20px;
+.open::after {
+  /* Se agrega cuando el bton se presiona para mostrar elemento*/
+  content: "-";
+  color: black;
+  float: right;
+  margin-left: 20px;
+  font-size: 20px;
 }
 
 /*                                  BTN SECCION 1                                 */
 
-.btnSectionOne{
-    /* Caracteristica del primer Btn Que simula el efecto del acordeon */
-    color: black;
-    background: #D8D8D8;
-    border-style: none;
-    font-size: 18px;
-    letter-spacing: 2px;
-    margin-top: 20px;
-    cursor:pointer;
-    display:block;
-    height: 30px;
-    width:100%;
-    margin-left: auto;
-    margin-right: auto;
+.btnSectionOne {
+  /* Caracteristica del primer Btn Que simula el efecto del acordeon */
+  color: black;
+  background: #d8d8d8;
+  border-style: none;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-top: 20px;
+  cursor: pointer;
+  display: block;
+  height: 30px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .containerSectionOneSurveyOne {
-    /* Permite esconde incialmente el contenido de la primera sección del contenido de cada dimension */
-    display: none;
-    font-size: 14px;
-    background-color: #e5f5f9;
-    width:100%;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: hidden;
-    outline: none;
-    padding: 10px 20px 10px 20px;
-    line-height: 1.3;
+  /* Permite esconde incialmente el contenido de la primera sección del contenido de cada dimension */
+  display: none;
+  font-size: 14px;
+  background-color: #e5f5f9;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  outline: none;
+  padding: 10px 20px 10px 20px;
+  line-height: 1.3;
 }
 
 @keyframes fade {
-    0% {
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-.containerSectionOneSurveyTwo{
-    /* Permite esconde incialmente el contenido de la primera sección del contenido de cada dimension */
-    display: none;
-    font-size: 14px;
-    background-color: #e5f5f9;
-    padding: 10px 20px 10px 20px;
-    line-height: 1.3;
+.containerSectionOneSurveyTwo {
+  /* Permite esconde incialmente el contenido de la primera sección del contenido de cada dimension */
+  display: none;
+  font-size: 14px;
+  background-color: #e5f5f9;
+  padding: 10px 20px 10px 20px;
+  line-height: 1.3;
 }
 
 .btnSectionOne:hover {
-    background-color:  #b0bec5;
+  background-color: #b0bec5;
 }
 
-.sectionOneShow { 
-    /* Sirve para activar el boton mostrar más */
-    display:block;
-    opacity: 1;
-    animation: fade 2s;
+.sectionOneShow {
+  /* Sirve para activar el boton mostrar más */
+  display: block;
+  opacity: 1;
+  animation: fade 2s;
 }
 
 .textIntroductionSectionOne {
- /*   padding-top: 10px;
+  /*   padding-top: 10px;
     padding-bottom: 5px;*/
 }
 
-
 /*                                  BTN SECCION 2                                 */
 
-.btnSectionTwo{
-    /* caracteristicas para el boton un poco más #08519c */
-    color: black;
-    background:#D8D8D8;
-    border-style: none;
-    font-size: 18px;
-    letter-spacing: 2px;
-    cursor:pointer;
-    display:block;
-    height: 30px;
-    width:100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
+.btnSectionTwo {
+  /* caracteristicas para el boton un poco más #08519c */
+  color: black;
+  background: #d8d8d8;
+  border-style: none;
+  font-size: 18px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: block;
+  height: 30px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
 }
 
-.containerSectionTwoSurveyOne{
-    /* Permite esconde incialmente el contenido de la segunda sección del contenido de cada dimension */
-    display:none;
-    font-size: 14px;
-    background-color: #e5f5f9;
-    overflow: hidden;
-    outline: none;
-    padding: 10px 20px 10px 20px;
-    line-height: 1.3;
+.containerSectionTwoSurveyOne {
+  /* Permite esconde incialmente el contenido de la segunda sección del contenido de cada dimension */
+  display: none;
+  font-size: 14px;
+  background-color: #e5f5f9;
+  overflow: hidden;
+  outline: none;
+  padding: 10px 20px 10px 20px;
+  line-height: 1.3;
 }
 
 .containerSectionTwoSurveyTwo {
-    display:none;
-    font-size: 14px;
-    background-color: #e5f5f9;
-    padding: 10px 20px 10px 20px;
-    line-height: 1.3;
+  display: none;
+  font-size: 14px;
+  background-color: #e5f5f9;
+  padding: 10px 20px 10px 20px;
+  line-height: 1.3;
 }
 
 .btnSectionTwo:hover {
-    background-color: #b0bec5;
+  background-color: #b0bec5;
 }
 
-.sectionTwoShow { 
-    /*Sirve para hacer visible el contenido de la sección dos de cada dimension  */
-    display:block;
-    opacity: 1;
-    animation: fade 2s;
+.sectionTwoShow {
+  /*Sirve para hacer visible el contenido de la sección dos de cada dimension  */
+  display: block;
+  opacity: 1;
+  animation: fade 2s;
 }
 
 /*                                  BTN SECCION 3                                */
 
-.btnSectionThree{
-    /* Caracteristica del tercer Btn Que simula el efecto del acordeon */
-    color: black;
-    background: #bcbddc;
-    border-style: none; 
-    font-size: 18px;
-    text-align:center;
-    cursor:pointer;
-    display:block;
-    height: 30px;
-    width:100%;
-    margin-left: auto;
-    margin-right: auto;
-    letter-spacing: 2px;
-    margin-top: 10px;
+.btnSectionThree {
+  /* Caracteristica del tercer Btn Que simula el efecto del acordeon */
+  color: black;
+  background: #bcbddc;
+  border-style: none;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  height: 30px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: 2px;
+  margin-top: 10px;
 }
 
 .containerSectionThreeSurveyOne {
-    /* Permite esconde incialmente el contenido de la tercera sección del contenido de cada dimension */
-    display: none;
-    font-size: 14px;
-    width:100%;
-    background-color: #e5f5f9;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px 20px 10px 20px;
-    line-height: 1.3;
+  /* Permite esconde incialmente el contenido de la tercera sección del contenido de cada dimension */
+  display: none;
+  font-size: 14px;
+  width: 100%;
+  background-color: #e5f5f9;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px 10px 20px;
+  line-height: 1.3;
 }
 
 .containerSectionThreeSurveyTwo {
-    display:none;
-    font-size: 14px;
-    background-color: #e5f5f9;
-    width:100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px 20px 10px 20px;
-    line-height: 1.3;
+  display: none;
+  font-size: 14px;
+  background-color: #e5f5f9;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px 10px 20px;
+  line-height: 1.3;
 }
 
 .open {
-    background-color: #74a9cf;
+  background-color: #74a9cf;
 }
 
 .btnSectionThree:hover {
-    background-color: #b0bec5;
+  background-color: #b0bec5;
 }
 
-.sectionThreeShow { 
-    /* Sirve para activar el boton de la seccion tres */
-    display:block;
-    opacity: 1;
-    animation: fade 2s;
-    
+.sectionThreeShow {
+  /* Sirve para activar el boton de la seccion tres */
+  display: block;
+  opacity: 1;
+  animation: fade 2s;
 }
 
 /*                          RECOMENDACIONES                                 */
 .ContainerAdvice {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    line-height: 1.1;
-
+  padding-top: 15px;
+  padding-bottom: 15px;
+  line-height: 1.1;
 }
 
 /*                                  REFERENCIAS                                     */
 
-.containerReference{
-    /*Caracteristicas div de las referencias*/
-    background: #fff;
-    border-top: 4px solid #ccc;
-    font-size: 11px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    padding: 10px 20px 0px 20px; 
+.containerReference {
+  /*Caracteristicas div de las referencias*/
+  background: #fff;
+  border-top: 4px solid #ccc;
+  font-size: 11px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding: 10px 20px 0px 20px;
 }
